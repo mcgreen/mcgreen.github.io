@@ -15,4 +15,6 @@ export class LoggerService {
   clear = console.clear;
 
   warn = console.warn;
+
+  trace = console.trace;
 }

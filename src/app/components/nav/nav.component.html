@@ -1,0 +1,24 @@
+<mat-toolbar *ngIf="router.url !== '/login'" class="nav-toolbar mat-elevation-z10">
+  <img class="nav-logo" src="assets/logo.png"/>
+  <span>S-Dash</span>
+  <span class="toolbar-spacer"></span>
+  <app-user></app-user>
+</mat-toolbar>
+<mat-sidenav-container class="nav-container">
+  <mat-sidenav class="nav-sidenav mat-elevation-z10" *ngIf="router.url !== '/login'" mode="side" opened>
+    <mat-nav-list>
+      <a mat-list-item routerLink="/home" routerLinkActive="active">
+        <mat-icon mat-list-icon>home</mat-icon>
+        <span mat-line>Home</span>
+      </a>
+      <a mat-list-item routerLink="/discover" routerLinkActive="active">
+        <mat-icon mat-list-icon>manage_search</mat-icon>
+        <span mat-line>Discover</span>
+      </a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

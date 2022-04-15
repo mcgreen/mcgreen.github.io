@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams, HttpRequest} from "@angular/common/http";
 import {catchError, Observable, of, throwError} from "rxjs";
 import {LoggerService} from "./logger.service";
+import {Store} from "../../../store";
 
 export interface IRequestOptions {
   headers?: HttpHeaders;
@@ -22,11 +23,17 @@ export class BaseHttpService {
 
   constructor(
     private http: HttpClient,
-    private logger: LoggerService
+    private logger: LoggerService,
+    private store: Store,
   ) {
   }
 
   public get<T>(url: string, options: IRequestOptions = {}): Observable<T> {
+    const headers: HttpHeaders = new HttpHeaders({
+      "Content-Type": "application/json",
+      "Authorization": "Bearer " + this.store.value.access_token
+    });
+    options.headers = headers;
     return this.http.get<T>(url, options).pipe(
       catchError(this.handleError<T>(options.operation || ("GET " + url), options.failWith ? options.failWith : null)),
     );

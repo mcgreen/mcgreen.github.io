@@ -4,11 +4,11 @@ import { Injectable } from '@angular/core';
 import { LocalStorageService } from "@shared/services/local-storage.service";
 
 export interface State {
-  access_token: string | undefined | null;
+  access_token: string | undefined;
 }
 
 const state: State = {
-  access_token: null,
+  access_token: undefined,
 };
 
 @Injectable({ providedIn: 'root' })

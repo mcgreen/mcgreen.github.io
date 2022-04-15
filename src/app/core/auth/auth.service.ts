@@ -23,9 +23,9 @@ export class AuthService {
     window.location.href = this.buildUrlParam(this.spotifyAuthUrl + '?', {
       client_id: AuthConstants.CLIENT_ID,
       response_type: 'token',
-      redirect_uri: encodeURIComponent(AuthConstants.REDIRECT_URI),
+      redirect_uri: encodeURIComponent(`${window.location.protocol}//${window.location.host}/login`),
       scope: encodeURIComponent(AuthConstants.SCOPES.join(' ')),
-    })
+    });
   }
 
   logout(): void {
@@ -38,7 +38,6 @@ export class AuthService {
 
   setToken(token: string | null) {
     this.store.set(AuthConstants.AUTH_KEY, token);
-    this.logger.log(this.store.value.access_token);
   }
 
   /* HELPER FUNCTIONS */

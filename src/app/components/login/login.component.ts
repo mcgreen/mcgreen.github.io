@@ -26,26 +26,21 @@ export class LoginComponent implements OnInit {
           error: params.get('error'),
         })),
         tap((res) => {
-          console.log(res);
           auth.setToken(res.access_token);
         })
       )
       .subscribe(async (res) => {
-        this.logger.log(res);
-
         if (!res.access_token) {
           return;
         }
 
-        auth.setToken(res.access_token);
+        this.auth.setToken(res.access_token);
       });
   }
 
   ngOnInit(): void {
     if (this.auth.authToken) {
-      this.logger.trace(`Logged in as`, this.auth.authToken);
       this.router.navigate(['/home']);
-      return;
     }
   }
 

@@ -25,7 +25,8 @@
     "paths": {
       "@shared/*": ["app/shared/*"],
       "@core/*": ["app/core/*"],
-      "@components/*": ["app/components/*"]
+      "@components/*": ["app/components/*"],
+      "@styles/*": ["app/styles/*"]
     }
   },
   "angularCompilerOptions": {

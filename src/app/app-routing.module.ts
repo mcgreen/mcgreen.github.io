@@ -14,6 +14,10 @@ const routes: Routes = [
   {
     path: 'home',
     loadChildren: () => import('@components/home/home.module').then(m => m.HomeModule),
+  },
+  {
+    path: 'discover',
+    loadChildren: () => import('@components/discover/discover.module').then(m => m.DiscoverModule),
   }
 ];
 

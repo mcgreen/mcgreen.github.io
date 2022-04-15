@@ -1,4 +1,10 @@
-<div>
-  <span>Hey there!  Login with Spotify to continue.</span>
+<div fxFlex="auto" class="container">
+  <mat-card class="mat-elevation-z10 login-card">
+    <mat-card-title class="login-title">S-Dash</mat-card-title>
+    <mat-card-subtitle class="login-subtitle">Spotify insight and discovery dashboard</mat-card-subtitle>
+    <mat-card-content>
+      Login with Spotify to continue:
+    </mat-card-content>
+    <img (click)="login()" mat-card-image class="login-logo" src="assets/banner-logo.png" alt="Spotify Logo">
+  </mat-card>
 </div>
-<button mat-flat-button class="mat-primary" (click)="login()">Login</button>

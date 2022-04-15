@@ -1,0 +1,16 @@
+<ng-container>
+  <button mat-icon-button [matMenuTriggerFor]="menu">
+    <mat-icon>person</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <div class="user-menu">
+      <img class="spotify-user-image mat-elevation-z5" [src]="user?.images[0]?.url">
+      <p>User: {{user?.display_name}}</p>
+      <p>Email: {{user?.email}}</p>
+      <p>Followers: {{user?.followers.total}}</p>
+      <p>User Type: {{user?.product | titlecase}}</p>
+      <button (click)="logout()" mat-flat-button class="logout-button">Logout</button>
+    </div>
+  </mat-menu>
+</ng-container>
+

@@ -11,7 +11,8 @@ import {AuthService} from "@core/auth/auth.service";
 })
 export class UserComponent implements OnInit {
 
-  user: any;
+  // @ts-ignore
+  user$: Observable<MeResponse>;
 
   constructor(
     private userService: UserService,
@@ -27,9 +28,7 @@ export class UserComponent implements OnInit {
   }
 
   fetchUserDetails() {
-    this.userService.getUserInfo().subscribe(response => {
-      this.user = response;
-    });
+    this.user$ = this.userService.getUserInfo();
   }
 
   logout() {

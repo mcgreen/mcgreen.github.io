@@ -3,20 +3,25 @@ import {AuthConstants} from "@shared/constants/auth.constants";
 import {Observable} from "rxjs";
 import {Store} from "../../../store";
 import {LoggerService} from "@shared/services/logger.service";
+import {APIConstants} from "@shared/constants/api.constants";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  private spotifyAuthUrl = AuthConstants.API_ACCOUNT_URL + AuthConstants.API_AUTH;
   auth$: Observable<string>;
+  private spotifyAuthUrl = APIConstants.API_ACCOUNT_URL + APIConstants.API_AUTH;
 
   constructor(
     private store: Store,
     private logger: LoggerService,
   ) {
     this.auth$ = this.store.select(AuthConstants.AUTH_KEY);
+  }
+
+  get authToken() {
+    return this.store.value.access_token;
   }
 
   login(): void {
@@ -30,10 +35,6 @@ export class AuthService {
 
   logout(): void {
     this.store.set(AuthConstants.AUTH_KEY, undefined);
-  }
-
-  get authToken() {
-    return this.store.value.access_token;
   }
 
   setToken(token: string | null) {

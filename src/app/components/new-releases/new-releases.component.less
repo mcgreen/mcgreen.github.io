@@ -1,0 +1,31 @@
+@import "../../../styles/variables";
+
+.new-releases-container {
+  display: inline-flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  height: 100%;
+}
+
+.new-release-item {
+  display: flex;
+  flex-direction: column;
+  margin: 1em;
+  width: 250px;
+  height: 300px;
+
+  &-img {
+    max-width: 200px;
+    max-height: 200px;
+    margin-left: 1.5em;
+  }
+
+  &-chip {
+    justify-self: flex-end;
+    border: 1px solid @accent-color;
+  }
+}
+
+.mat-chip-list-wrapper {
+  justify-content: center !important;
+}

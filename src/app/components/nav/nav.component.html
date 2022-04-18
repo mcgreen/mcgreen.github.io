@@ -1,6 +1,6 @@
 <mat-toolbar *ngIf="router.url !== '/login'" class="nav-toolbar mat-elevation-z10">
   <img class="nav-logo" src="assets/logo.png"/>
-  <span>S-Dash</span>
+  <span>Spotify Me</span>
   <span class="toolbar-spacer"></span>
   <app-user></app-user>
 </mat-toolbar>
@@ -11,9 +11,9 @@
         <mat-icon mat-list-icon>home</mat-icon>
         <span mat-line>Home</span>
       </a>
-      <a mat-list-item routerLink="/discover" routerLinkActive="active">
+      <a mat-list-item routerLink="/insights" routerLinkActive="active">
         <mat-icon mat-list-icon>manage_search</mat-icon>
-        <span mat-line>Discover</span>
+        <span mat-line>Insights</span>
       </a>
     </mat-nav-list>
   </mat-sidenav>

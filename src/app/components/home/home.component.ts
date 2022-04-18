@@ -4,6 +4,8 @@ import {Store} from "../../../store";
 import {AuthConstants} from "@shared/constants/auth.constants";
 import {AuthService} from "@core/auth/auth.service";
 import {Router} from "@angular/router";
+import {NewReleasesItem} from "@shared/interfaces/new-release";
+import {NewReleaseService} from "@components/new-releases/new-release.service";
 
 @Component({
   selector: 'app-home',
@@ -12,19 +14,24 @@ import {Router} from "@angular/router";
 })
 export class HomeComponent implements OnInit {
 
+  newReleases: NewReleasesItem[] = [];
+
   constructor(
-    private store: Store,
-    private auth: AuthService,
     private logger: LoggerService,
-    private router: Router
+    private newReleasesService: NewReleaseService,
+    private store: Store,
   ) {
+    // this.logger.log(this.store.value.access_token);
   }
 
   ngOnInit(): void {
-    this.logger.log(this.store.value.access_token);
-    if (!this.store.value.access_token) {
-      this.router.navigate(['/login']);
-    }
+    this.getNewReleases();
+  }
+
+  getNewReleases(): void {
+    this.newReleasesService.getNewReleases().subscribe((response: any) => {
+      this.newReleases = response;
+    });
   }
 
 }

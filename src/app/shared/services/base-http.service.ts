@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders, HttpParams, HttpRequest} from "@angular/common/
 import {catchError, Observable, of, throwError} from "rxjs";
 import {LoggerService} from "./logger.service";
 import {Store} from "../../../store";
+import {Router} from "@angular/router";
 
 export interface IRequestOptions {
   headers?: HttpHeaders;
@@ -25,6 +26,7 @@ export class BaseHttpService {
     private http: HttpClient,
     private logger: LoggerService,
     private store: Store,
+    private router: Router,
   ) {
   }
 
@@ -65,8 +67,10 @@ export class BaseHttpService {
 
   private handleError<T>(operation: string, result?: T) {
     return (error: any): Observable<T> => {
-      this.logger.error(error);
-      this.logger.log((`${operation} failed: ${error.message}`));
+      this.logger.log((`${operation} failed: ${error.message} with message: ${error.error.error.message}`));
+      if (error.error.error.message.toLowerCase() === 'the access token expired') {
+        this.router.navigate(['/login']);
+      }
       return result ? of(result) : throwError(error);
     };
   }

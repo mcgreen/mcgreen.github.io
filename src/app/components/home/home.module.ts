@@ -5,7 +5,6 @@ import {HomeComponent} from './home.component';
 import {NavModule} from "@components/nav/nav.module";
 import {NewReleasesModule} from "@components/new-releases/new-releases.module";
 import {SharedModule} from "@shared/shared.module";
-import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 
 
 @NgModule({
@@ -17,7 +16,6 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
     HomeRoutingModule,
     NavModule,
     NewReleasesModule,
-    MatProgressSpinnerModule,
   ]
 })
 export class HomeModule {

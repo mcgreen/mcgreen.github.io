@@ -1,10 +1,7 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {NgModule} from '@angular/core';
 
-import { NewReleasesRoutingModule } from './new-releases-routing.module';
-import { NewReleasesComponent } from './new-releases.component';
-import {MatCardModule} from "@angular/material/card";
-import {MatChipsModule} from "@angular/material/chips";
+import {NewReleasesRoutingModule} from './new-releases-routing.module';
+import {NewReleasesComponent} from './new-releases.component';
 import {SharedModule} from "@shared/shared.module";
 
 
@@ -20,4 +17,5 @@ import {SharedModule} from "@shared/shared.module";
     SharedModule
   ]
 })
-export class NewReleasesModule { }
+export class NewReleasesModule {
+}

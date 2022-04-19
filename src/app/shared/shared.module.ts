@@ -9,6 +9,7 @@ import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatButtonModule} from "@angular/material/button";
 import {MatCardModule} from "@angular/material/card";
 import {MatChipsModule} from "@angular/material/chips";
+import {MatMenuModule} from "@angular/material/menu";
 
 
 @NgModule({
@@ -16,15 +17,6 @@ import {MatChipsModule} from "@angular/material/chips";
     ImagePipe,
   ],
   imports: [
-    CommonModule,
-    MatSidenavModule,
-    MatListModule,
-    MatIconModule,
-    RouterModule,
-    MatToolbarModule,
-    MatButtonModule,
-    MatCardModule,
-    MatChipsModule,
   ],
   exports: [
     ImagePipe,
@@ -37,6 +29,7 @@ import {MatChipsModule} from "@angular/material/chips";
     MatButtonModule,
     MatCardModule,
     MatChipsModule,
+    MatMenuModule
   ]
 })
 export class SharedModule {

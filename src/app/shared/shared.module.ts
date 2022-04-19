@@ -1,15 +1,10 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {ImagePipe} from './pipes/image.pipe';
-import {MatSidenavModule} from "@angular/material/sidenav";
-import {MatListModule} from "@angular/material/list";
 import {MatIconModule} from "@angular/material/icon";
-import {RouterModule} from "@angular/router";
-import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatButtonModule} from "@angular/material/button";
 import {MatCardModule} from "@angular/material/card";
 import {MatChipsModule} from "@angular/material/chips";
-import {MatMenuModule} from "@angular/material/menu";
 import {OrderByPipe} from "@shared/pipes/order-by.pipe";
 
 
@@ -18,21 +13,13 @@ import {OrderByPipe} from "@shared/pipes/order-by.pipe";
     ImagePipe,
     OrderByPipe,
   ],
-  imports: [
-  ],
+  imports: [],
   exports: [
     ImagePipe,
     OrderByPipe,
     CommonModule,
-    MatSidenavModule,
-    MatListModule,
-    MatIconModule,
-    RouterModule,
-    MatToolbarModule,
-    MatButtonModule,
     MatCardModule,
     MatChipsModule,
-    MatMenuModule
   ]
 })
 export class SharedModule {

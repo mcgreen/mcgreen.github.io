@@ -1,11 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {LoggerService} from "@shared/services/logger.service";
 import {Store} from "../../../store";
-import {AuthConstants} from "@shared/constants/auth.constants";
-import {AuthService} from "@core/auth/auth.service";
-import {Router} from "@angular/router";
 import {NewReleasesItem} from "@shared/interfaces/new-release";
-import {NewReleaseService} from "@components/new-releases/new-release.service";
+import {NewReleaseService} from "@components/home/new-releases/new-release.service";
 
 @Component({
   selector: 'app-home',

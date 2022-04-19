@@ -2,18 +2,18 @@ import {NgModule} from '@angular/core';
 
 import {HomeRoutingModule} from './home-routing.module';
 import {HomeComponent} from './home.component';
-import {NewReleasesModule} from "@components/new-releases/new-releases.module";
 import {SharedModule} from "@shared/shared.module";
+import {NewReleasesComponent} from "@components/home/new-releases/new-releases.component";
 
 
 @NgModule({
   declarations: [
-    HomeComponent
+    HomeComponent,
+    NewReleasesComponent,
   ],
   imports: [
     SharedModule,
     HomeRoutingModule,
-    NewReleasesModule,
   ]
 })
 export class HomeModule {

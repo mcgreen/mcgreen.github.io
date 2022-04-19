@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {UserService} from "@components/user/user.service";
+import {UserService} from "@components/nav/user/user.service";
 import {Observable} from "rxjs";
 import {MeResponse} from "@shared/interfaces/me-response";
 import {AuthService} from "@core/auth/auth.service";

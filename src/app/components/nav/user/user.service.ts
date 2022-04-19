@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {BaseHttpService} from "@shared/services/base-http.service";
 import {MeResponse} from "@shared/interfaces/me-response";
 import {AuthConstants} from "@shared/constants/auth.constants";
-import {Store} from "../../../store";
+import {Store} from "../../../../store";
 import {Observable, tap} from "rxjs";
 import {LoggerService} from "@shared/services/logger.service";
 import {Router} from "@angular/router";

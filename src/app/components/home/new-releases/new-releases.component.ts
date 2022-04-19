@@ -1,5 +1,5 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {NewReleaseService} from "@components/new-releases/new-release.service";
+import {Component, Input} from '@angular/core';
+import {NewReleaseService} from "@components/home/new-releases/new-release.service";
 import {NewReleasesItem} from "@shared/interfaces/new-release";
 
 @Component({
@@ -13,6 +13,7 @@ export class NewReleasesComponent {
 
   constructor(
     private newReleaseService: NewReleaseService,
-  ) { }
+  ) {
+  }
 
 }

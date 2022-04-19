@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {BaseHttpService} from "@shared/services/base-http.service";
 import {APIConstants} from "@shared/constants/api.constants";
 import {NewReleases, NewReleasesResponse} from "@shared/interfaces/new-release";
-import {map, Observable, tap} from "rxjs";
+import {map, Observable} from "rxjs";
 
 @Injectable({
   providedIn: 'root'

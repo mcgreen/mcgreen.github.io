@@ -16,10 +16,7 @@ import {SharedModule} from "@shared/shared.module";
     NewReleasesComponent
   ],
   imports: [
-    CommonModule,
     NewReleasesRoutingModule,
-    MatCardModule,
-    MatChipsModule,
     SharedModule
   ]
 })

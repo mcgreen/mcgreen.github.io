@@ -32,6 +32,7 @@ export class HomeComponent implements OnInit {
     this.newReleasesService.getNewReleases().subscribe((response: any) => {
       this.newReleases = response;
     });
+    console.log(this.newReleases.length);
   }
 
 }

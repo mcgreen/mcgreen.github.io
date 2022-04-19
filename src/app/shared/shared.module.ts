@@ -10,16 +10,19 @@ import {MatButtonModule} from "@angular/material/button";
 import {MatCardModule} from "@angular/material/card";
 import {MatChipsModule} from "@angular/material/chips";
 import {MatMenuModule} from "@angular/material/menu";
+import {OrderByPipe} from "@shared/pipes/order-by.pipe";
 
 
 @NgModule({
   declarations: [
     ImagePipe,
+    OrderByPipe,
   ],
   imports: [
   ],
   exports: [
     ImagePipe,
+    OrderByPipe,
     CommonModule,
     MatSidenavModule,
     MatListModule,

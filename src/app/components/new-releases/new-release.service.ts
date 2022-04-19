@@ -19,7 +19,6 @@ export class NewReleaseService {
   getNewReleases(): Observable<NewReleases[]> {
     return this.http.get<any>(this.newReleaseUrl).pipe(
       map((response: NewReleasesResponse) => {
-        console.log(response);
         const items: NewReleases[] = response.albums.items.map((
           {id, images, name, artists, type, album_type}) =>
           ({id, images, name, artists, type, album_type})

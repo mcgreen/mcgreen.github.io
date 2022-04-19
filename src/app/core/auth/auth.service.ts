@@ -28,7 +28,7 @@ export class AuthService {
     window.location.href = this.buildUrlParam(this.spotifyAuthUrl + '?', {
       client_id: AuthConstants.CLIENT_ID,
       response_type: 'token',
-      redirect_uri: encodeURIComponent(`${window.location.protocol}//${window.location.host}/sdash/login`),
+      redirect_uri: encodeURIComponent(`${window.location.protocol}//${window.location.host}/login`),
       scope: encodeURIComponent(AuthConstants.SCOPES.join(' ')),
     });
   }

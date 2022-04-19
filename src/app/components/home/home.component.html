@@ -2,6 +2,6 @@
   <h1 class="section-title">New Releases</h1>
   <app-new-releases
     [item]="releaseItem"
-    *ngFor="let releaseItem of newReleases"
+    *ngFor="let releaseItem of newReleases | orderBy: 'album_type'"
   ></app-new-releases>
 </section>

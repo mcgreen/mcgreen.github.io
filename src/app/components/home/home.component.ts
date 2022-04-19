@@ -21,7 +21,7 @@ export class HomeComponent implements OnInit {
     private newReleasesService: NewReleaseService,
     private store: Store,
   ) {
-    // this.logger.log(this.store.value.access_token);
+    this.logger.log(this.store.value.access_token);
   }
 
   ngOnInit(): void {

@@ -18,6 +18,10 @@ const routes: Routes = [
   {
     path: 'insights',
     loadChildren: () => import('@components/insights/insights.module').then(m => m.InsightsModule),
+  },
+  {
+    path: 'album',
+    loadChildren: () => import('@components/album/album.module').then(m => m.AlbumModule)
   }
 ];
 

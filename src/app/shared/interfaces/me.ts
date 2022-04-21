@@ -18,7 +18,7 @@ export interface ExternalURLS {
 	spotify: string;
 }
 
-export interface MeResponse {
+export interface Me {
 	country: string;
 	images: Array<Images>;
 	product: string;

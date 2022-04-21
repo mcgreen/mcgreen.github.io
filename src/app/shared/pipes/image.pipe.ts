@@ -5,7 +5,7 @@ import {Pipe, PipeTransform} from '@angular/core';
 })
 export class ImagePipe implements PipeTransform {
 
-  transform(images: any[]): any {
+  transform(images: any[] | undefined): any {
     if (!images || images.length == 0) {
       return 'assets/default-image.png'
     }

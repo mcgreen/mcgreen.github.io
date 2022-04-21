@@ -1,0 +1,44 @@
+@import "~styles/variables.less";
+
+.container {
+  margin: 2em;
+}
+
+.album {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 1em;
+  margin-top: 1em;
+  margin-left: 1em;
+  margin-right: 1em;
+
+  &-image {
+    max-width: 300px;
+    margin-right: 1em;
+  }
+
+  &-banner {
+    display: inline-flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  &-title {
+    font-size: 50px;
+  }
+
+  &-artists {
+    font-size: 20px;
+
+    &:hover {
+      color: @accent-color;
+      cursor: pointer;
+    }
+  }
+
+  &-iframe {
+    margin-top: 1em;
+    height: 50vh;
+    width: 100%;
+  }
+}

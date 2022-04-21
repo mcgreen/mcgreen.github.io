@@ -1,10 +1,10 @@
 <div class="new-releases-container">
   <mat-card class="new-release-item mat-elevation-z10" *ngIf="item">
-    <mat-card-title>{{item.name}}</mat-card-title>
+    <mat-card-title (click)="goToAlbum(item)">{{item.name}}</mat-card-title>
     <mat-card-subtitle *ngFor="let artist of item.artists">{{artist.name}}</mat-card-subtitle>
-    <img class="new-release-item-img" mat-card-image [src]="item.images | image" alt="Album image">
+    <img (click)="goToAlbum(item)" class="new-release-item-img" mat-card-image [src]="item.images | image" alt="Album image">
     <mat-chip-list>
-      <mat-chip class="new-release-item-chip">{{item.album_type | uppercase}}</mat-chip>
+      <mat-chip  class="new-release-item-chip">{{item.album_type | uppercase}}</mat-chip>
     </mat-chip-list>
   </mat-card>
 </div>

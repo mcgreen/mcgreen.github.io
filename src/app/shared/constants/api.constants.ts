@@ -5,6 +5,7 @@ export const APIConstants = {
   API_AUTH: '/authorize',
   API_PROFILE: '/me',
   API_NEW_RELEASES: '/browse/new-releases',
+  API_ALBUM: `/albums/`,
   API_TOP_TRACKS: '/top/tracks',
   API_TOP_ARTISTS: '/top/artists',
 }

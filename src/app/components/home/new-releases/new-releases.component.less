@@ -18,6 +18,10 @@
     max-width: 200px;
     max-height: 200px;
     margin-left: 1.5em;
+
+    &:hover {
+      cursor: pointer;
+    }
   }
 
   &-chip {
@@ -28,4 +32,11 @@
 
 .mat-chip-list-wrapper {
   justify-content: center !important;
+}
+
+.mat-card-title {
+  cursor: pointer;
+  &:hover {
+    color: @accent-color;
+  }
 }

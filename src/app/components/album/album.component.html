@@ -1,1 +1,19 @@
-<p>album works!</p>
+<mat-card class="container">
+<div class="album" *ngIf="album">
+  <div class="album-banner">
+    <img class="album-image" [src]="album.images | image" alt="Album image">
+    <div>
+      <h1 class="album-title">{{album.name}}</h1>
+      <div class="album-artists">
+          <span *ngFor="let artist of album.artists">
+              {{artist.name}}
+          </span>
+      </div>
+    </div>
+  </div>
+  <div>
+  </div>
+  <iframe class="album-iframe" [src]="album.uri | uri" allowtransparency="true"
+          allow="encrypted-media"></iframe>
+</div>
+</mat-card>

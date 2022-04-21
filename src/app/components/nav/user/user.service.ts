@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {BaseHttpService} from "@shared/services/base-http.service";
-import {MeResponse} from "@shared/interfaces/me-response";
+import {Me} from "@shared/interfaces/me";
 import {AuthConstants} from "@shared/constants/auth.constants";
 import {Store} from "../../../../store";
 import {Observable, tap} from "rxjs";
@@ -23,8 +23,8 @@ export class UserService {
   ) {
   }
 
-  getUserInfo(): Observable<MeResponse> {
-    return this.http.get<MeResponse>(this.userUrl).pipe(
+  getUserInfo(): Observable<Me> {
+    return this.http.get<Me>(this.userUrl).pipe(
       tap(() => this.logger.log(`fetched user profile`)),
     );
   }

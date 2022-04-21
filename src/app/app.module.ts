@@ -7,7 +7,6 @@ import {CoreModule} from "@core/core.module";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {LocalStorageService} from "@shared/services/local-storage.service";
 import {NavModule} from "@components/nav/nav.module";
-import {CommonModule} from "@angular/common";
 
 @NgModule({
   declarations: [

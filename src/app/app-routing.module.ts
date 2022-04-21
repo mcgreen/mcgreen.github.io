@@ -20,7 +20,7 @@ const routes: Routes = [
     loadChildren: () => import('@components/insights/insights.module').then(m => m.InsightsModule),
   },
   {
-    path: 'album',
+    path: 'album/:id',
     loadChildren: () => import('@components/album/album.module').then(m => m.AlbumModule)
   }
 ];

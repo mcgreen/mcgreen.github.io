@@ -1,0 +1,6 @@
+<mat-card class="container">
+  <div *ngIf="artist" class="artist">
+    <iframe class="artist-iframe" [src]="artist.uri | uri" allowtransparency="true"
+            allow="encrypted-media"></iframe>
+  </div>
+</mat-card>

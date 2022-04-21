@@ -11,8 +11,7 @@ import {MatListModule} from "@angular/material/list";
 import {MatSidenavModule} from "@angular/material/sidenav";
 import {RouterModule} from "@angular/router";
 import {MatIconModule} from "@angular/material/icon";
-import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
-import { UriPipe } from './pipes/uri.pipe';
+import {UriPipe} from './pipes/uri.pipe';
 
 
 @NgModule({
@@ -36,7 +35,6 @@ import { UriPipe } from './pipes/uri.pipe';
     MatButtonModule,
     MatCardModule,
     MatChipsModule,
-    MatProgressSpinnerModule,
   ]
 })
 export class SharedModule {

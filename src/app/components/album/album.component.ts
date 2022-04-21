@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {AlbumService} from "@components/album/album.service";
-import {Album} from "@shared/interfaces/album";
+import {Album, Artist} from "@shared/interfaces/album";
 
 @Component({
   selector: 'app-album',
@@ -15,6 +15,7 @@ export class AlbumComponent implements OnInit {
   constructor(
     public albumService: AlbumService,
     private albumId: ActivatedRoute,
+    private router: Router,
   ) {
   }
 
@@ -34,4 +35,7 @@ export class AlbumComponent implements OnInit {
     });
   }
 
+  goToArtist(artist: Artist) {
+    this.router.navigate(['/artist', artist.id]);
+  }
 }

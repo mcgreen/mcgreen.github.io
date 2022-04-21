@@ -21,4 +21,8 @@ export class NewReleasesComponent {
   goToAlbum(item: NewReleasesItem) {
     this.router.navigate(['/album', item.id]);
   }
+
+  goToArtist(item: NewReleasesItem) {
+    this.router.navigate(['/artist', item.artists[0].id]);
+  }
 }

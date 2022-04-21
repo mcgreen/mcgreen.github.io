@@ -5,7 +5,7 @@
     <div>
       <h1 class="album-title">{{album.name}}</h1>
       <div class="album-artists">
-          <span *ngFor="let artist of album.artists">
+          <span (click)="goToArtist(artist)" *ngFor="let artist of album.artists">
               {{artist.name}}
           </span>
       </div>

@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunksdash=self.webpackChunksdash||[]).push([[592],{1413:(l,r,n)=>{n.d(r,{I:()=>u});var t=n(5e3);let u=(()=>{class a{transform(e){return e&&0!=e.length?e.length>0?e[0].url:void 0:"assets/default-image.png"}}return a.\u0275fac=function(e){return new(e||a)},a.\u0275pipe=t.Yjl({name:"image",type:a,pure:!0}),a})()}}]);

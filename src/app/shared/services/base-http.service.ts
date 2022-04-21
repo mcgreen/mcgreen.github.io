@@ -70,7 +70,7 @@ export class BaseHttpService {
     return (error: any): Observable<T> => {
       this.logger.log(error);
       this.logger.log((`${operation} failed: ${error.message} with message: ${error.error.error.message}`));
-      if (error.error.error.message.toLowerCase() === 'the access token expired' || error.error.status === 401) {
+      if (error.error.error.message.toLowerCase() === 'the access token expired' || error.error.error.status === 401) {
         this.router.navigate(['/login']);
       }
       return result ? of(result) : throwError(error);

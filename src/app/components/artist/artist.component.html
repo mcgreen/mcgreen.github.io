@@ -1,5 +1,14 @@
-<mat-card class="container">
-  <div *ngIf="artist" class="artist">
+<mat-card *ngIf="artist" class="container">
+  <div class="artist">
+    <div class="artist-banner">
+      <img class="artist-image" [src]="artist.images | image" alt="Album image">
+      <div>
+        <h1 class="artist-title">{{artist.name}}</h1>
+      </div>
+    </div>
+  </div>
+  <div class="artist-top-tracks">
+    <h1>Artist Top Tracks</h1>
     <iframe class="artist-iframe" [src]="artist.uri | uri" allowtransparency="true"
             allow="encrypted-media"></iframe>
   </div>

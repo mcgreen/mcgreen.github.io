@@ -20,7 +20,6 @@ import {NavModule} from "@components/nav/nav.module";
     NavModule
   ],
   providers: [
-    LocalStorageService
   ],
   exports: [],
   bootstrap: [AppComponent]

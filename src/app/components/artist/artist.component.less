@@ -1,12 +1,32 @@
 .container {
   margin: 2em;
+  padding: 1em;
 }
 
 .artist {
   display: flex;
   flex-wrap: wrap;
   margin: 1em;
-  padding: 1em;
+
+  &-title {
+    font-size: 50px;
+  }
+
+  &-image {
+    max-width: 300px;
+    margin-right: 1em;
+  }
+
+  &-banner {
+    display: inline-flex;
+    flex-direction: row;
+  }
+
+  &-top-tracks {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 1em;
+  }
 
   &-iframe {
     width: 100%;

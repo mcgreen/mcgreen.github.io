@@ -4,11 +4,13 @@ import { CommonModule } from '@angular/common';
 import { ArtistRoutingModule } from './artist-routing.module';
 import { ArtistComponent } from './artist.component';
 import {SharedModule} from "@shared/shared.module";
+import { TopTracksComponent } from './top-tracks/top-tracks.component';
 
 
 @NgModule({
   declarations: [
-    ArtistComponent
+    ArtistComponent,
+    TopTracksComponent
   ],
   imports: [
     ArtistRoutingModule,

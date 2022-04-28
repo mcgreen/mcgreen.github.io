@@ -12,6 +12,8 @@ import {MatSidenavModule} from "@angular/material/sidenav";
 import {RouterModule} from "@angular/router";
 import {MatIconModule} from "@angular/material/icon";
 import {UriPipe} from './pipes/uri.pipe';
+import {MatTooltipModule} from "@angular/material/tooltip";
+import {MatExpansionModule} from "@angular/material/expansion";
 
 
 @NgModule({
@@ -35,6 +37,8 @@ import {UriPipe} from './pipes/uri.pipe';
     MatButtonModule,
     MatCardModule,
     MatChipsModule,
+    MatTooltipModule,
+    MatExpansionModule
   ]
 })
 export class SharedModule {

@@ -1,34 +1,101 @@
+@import "~styles/variables";
+
 .container {
-  margin: 2em;
-  padding: 1em;
+  margin: 1em;
 }
 
 .artist {
-  display: flex;
-  flex-wrap: wrap;
-  margin: 1em;
+  &-title-group {
+    margin: 0.5em;
+    margin-top: 1em !important;
+  }
 
   &-title {
-    font-size: 50px;
+    font-size: 60px;
   }
 
   &-image {
-    max-width: 300px;
-    margin-right: 1em;
-  }
-
-  &-banner {
-    display: inline-flex;
-    flex-direction: row;
+    border-radius: 20px;
   }
 
   &-top-tracks {
-    display: flex;
-    flex-wrap: wrap;
-    padding: 1em;
+
+    &-title {
+      font-size: 30px;
+    }
   }
 
   &-iframe {
     width: 100%;
   }
+
+  &-break {
+    flex-basis: 100%;
+    height: 0;
+  }
+
+  &-panel {
+    margin-top: 2em;
+    box-shadow: 0 -5px 3px -3px white, 0 5px 3px -3px white;
+    padding-top: 1em;
+
+    &-header {
+      font-size: 20px;
+      margin-bottom: 0.5em;
+    }
+  }
+
+  &-panel .mat-expansion-panel-header-description {
+    justify-content: flex-end;
+  }
+
+  &-popularity-container {
+    margin-top: 0.5em;
+    font-size: 30px;
+  }
+
+  &-popularity {
+    margin-right: 0.2em;
+  }
+
+  &-popularity-icon {
+    font-size: 30px;
+    color: #DE541E;
+  }
+
+  &-followers-container {
+    margin-top: 1em;
+    font-size: 30px;
+  }
+
+  &-followers {
+    margin-right: 0.2em;
+  }
+
+  &-followers-icon {
+    color: #FFF275;
+    font-size: 30px;
+  }
+
+  &-genre-container {
+    margin-left: -4px;
+    margin-top: 1em;
+  }
+
+  &-genre-chip {
+    border: 1px solid @accent-color;
+    justify-content: space-evenly;
+  }
 }
+
+@media screen and (max-width: 900px) {
+  .artist-title {
+    font-size: 40px;
+  }
+}
+
+//::ng-deep .mat-chip-list-wrapper {
+//  flex-direction: column !important;
+//  align-items: flex-start !important;
+//  margin: -4px;
+//}

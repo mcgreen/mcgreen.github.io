@@ -23,7 +23,7 @@ export class ArtistService {
   }
 
   getTopTracks(id: string): Observable<ArtistTopTracks[]> {
-    const artistTopTrackUrl: string = APIConstants.API_URL + `artists/${id}/top-tracks?market=us`;
+    const artistTopTrackUrl: string = APIConstants.API_URL + `/artists/${id}/top-tracks?market=us`;
     return this.http.get<ArtistTopTracks[]>(artistTopTrackUrl).pipe(
       tap(() => `fetched artist top tracks ${id}`),
     );

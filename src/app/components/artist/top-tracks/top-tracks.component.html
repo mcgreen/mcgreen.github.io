@@ -1,5 +1,22 @@
 <div *ngIf="topTrack" class="container">
-  <div class="top-track-iframe">
-    <iframe class="" [src]="topTrack.uri | uri" allowtransparency="true" allow="encrypted-media"></iframe>
-  </div>
+  <mat-card class="top-track-card">
+    <mat-card-title-group>
+      <mat-card-title class="">
+        <div>
+          {{topTrack.name}}
+          <mat-chip matTooltip="EXPLICIT" disabled class="top-track-explicit" *ngIf="topTrack.explicit">E</mat-chip>
+        </div>
+        </mat-card-title>
+    </mat-card-title-group>
+    <mat-card-subtitle>
+      <div class="top-track-popularity">
+        {{topTrack.popularity}}
+        <mat-icon matTooltipPosition="right" matTooltip="ARTIST POPULARITY" class="top-track-popularity-icon">whatshot
+        </mat-icon>
+      </div>
+    </mat-card-subtitle>
+    <div class="top-track">
+      <iframe [src]="topTrack.uri | uri" allowtransparency="true" allow="encrypted-media"></iframe>
+    </div>
+  </mat-card>
 </div>

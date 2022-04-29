@@ -14,27 +14,46 @@
       </div>
       <div class="artist-genre-container">
         <mat-chip-list>
-          <mat-chip matTooltip="Artist Genres" class="artist-genre-chip" *ngFor="let genre of artist.genres">{{genre | titlecase}}</mat-chip>
+          <mat-chip matTooltipShowDelay="2000" matTooltip="Artist Genres" class="artist-genre-chip"
+                    *ngFor="let genre of artist.genres">{{genre | titlecase}}</mat-chip>
         </mat-chip-list>
-      </div>
-    </mat-card-subtitle>
-    <img class="artist-image" mat-card-xl-image [src]="artist.images | image" alt="artist">
-  </mat-card-title-group>
-  <div class="artist-top-tracks">
-    <mat-expansion-panel class="artist-panel mat-elevation-z10" expanded="true">
-      <mat-expansion-panel-header class="artist-panel-header">
-        <mat-panel-title>
-          Top Tracks
-        </mat-panel-title>
-        <mat-panel-description>
-          <mat-icon>album</mat-icon>
-        </mat-panel-description>
-      </mat-expansion-panel-header>
-      <div *ngIf="topTracks.tracks.length > 0">
-        <app-top-tracks [topTrack]="topTrack" *ngFor="let topTrack of topTracks.tracks"></app-top-tracks>
       </div>
       <iframe class="artist-iframe" [src]="artist.uri | uri" allowtransparency="true"
               allow="encrypted-media"></iframe>
-    </mat-expansion-panel>
+    </mat-card-subtitle>
+    <img class="artist-image" [src]="artist.images | image" alt="artist">
+  </mat-card-title-group>
+
+  <div class="artist-top-tracks">
+    <mat-tab-group>
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <div class="artist-top-tracks-tab">
+            Top Tracks
+          </div>
+        </ng-template>
+        <div class="artist-top-tracks-container" *ngIf="topTracks.tracks.length > 0">
+          <app-top-tracks [topTrack]="topTrack" *ngFor="let topTrack of topTracks.tracks"></app-top-tracks>
+        </div>
+      </mat-tab>
+      <mat-tab>
+        <ng-template mat-tab-label>Top Albums</ng-template>
+      </mat-tab>
+    </mat-tab-group>
+    <!--    <mat-expansion-panel class="artist-panel mat-elevation-z10" expanded="true">-->
+    <!--      <mat-expansion-panel-header class="artist-panel-header">-->
+    <!--        <mat-panel-title>-->
+    <!--          Top Tracks-->
+    <!--        </mat-panel-title>-->
+    <!--        <mat-panel-description>-->
+    <!--          <mat-icon>album</mat-icon>-->
+    <!--        </mat-panel-description>-->
+    <!--      </mat-expansion-panel-header>-->
+    <!--      <div *ngIf="topTracks.tracks.length > 0">-->
+    <!--        <app-top-tracks [topTrack]="topTrack" *ngFor="let topTrack of topTracks.tracks"></app-top-tracks>-->
+    <!--      </div>-->
+    <!--      <iframe class="artist-iframe" [src]="artist.uri | uri" allowtransparency="true"-->
+    <!--              allow="encrypted-media"></iframe>-->
+    <!--    </mat-expansion-panel>-->
   </div>
 </mat-card>

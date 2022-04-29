@@ -11,4 +11,8 @@ export class TopTracksComponent {
   @Input() topTrack: any;
 
   constructor() { }
+
+  whatHappen($event: MouseEvent) {
+    console.log($event);
+  }
 }

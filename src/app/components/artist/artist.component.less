@@ -2,31 +2,40 @@
 
 .container {
   margin: 1em;
+  max-width: 100%;
 }
 
 .artist {
   &-title-group {
-    margin: 0.5em;
-    margin-top: 1em !important;
   }
 
   &-title {
     font-size: 60px;
+    margin-top: 0.5em;
   }
 
   &-image {
     border-radius: 20px;
+    margin-right: 1em;
+    width: 400px;
+    height: 400px;
   }
 
   &-top-tracks {
+    margin-top: 1em;
 
     &-title {
       font-size: 30px;
+    }
+
+    &-container {
+      margin-top: 1em;
     }
   }
 
   &-iframe {
     width: 100%;
+    margin-top: 3em;
   }
 
   &-break {
@@ -88,9 +97,33 @@
   }
 }
 
+//.mat-expansion-panel {
+//  box-sizing: content-box;
+//  display: flex;
+//  margin: 0;
+//  flex-basis: 50%;
+//  flex-direction: column;
+//  border-radius: 4px;
+//  transition: margin 225ms cubic-bezier(0.4, 0, 0.2, 1), box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
+//  position: relative;
+//}
+
+.mat-card-title-group {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: start;
+}
+
 @media screen and (max-width: 900px) {
-  .artist-title {
-    font-size: 40px;
+  .artist {
+    &-title {
+      font-size: 40px;
+    }
+
+    &-image {
+      max-width: 200px;
+      max-height: 200px;
+    }
   }
 }
 

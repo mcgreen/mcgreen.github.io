@@ -1,3 +1,5 @@
-<div *ngIf="topTrack">
-  {{topTrack.name}}
+<div *ngIf="topTrack" class="container">
+  <div class="top-track-iframe">
+    <iframe class="" [src]="topTrack.uri | uri" allowtransparency="true" allow="encrypted-media"></iframe>
+  </div>
 </div>

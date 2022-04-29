@@ -14,6 +14,7 @@ import {MatIconModule} from "@angular/material/icon";
 import {UriPipe} from './pipes/uri.pipe';
 import {MatTooltipModule} from "@angular/material/tooltip";
 import {MatExpansionModule} from "@angular/material/expansion";
+import {MatTabsModule} from "@angular/material/tabs";
 
 
 @NgModule({
@@ -38,7 +39,8 @@ import {MatExpansionModule} from "@angular/material/expansion";
     MatCardModule,
     MatChipsModule,
     MatTooltipModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatTabsModule
   ]
 })
 export class SharedModule {

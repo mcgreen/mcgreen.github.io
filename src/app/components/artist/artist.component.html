@@ -31,28 +31,16 @@
             Top Tracks
           </div>
         </ng-template>
-        <div class="artist-top-tracks-container" *ngIf="topTracks.tracks.length > 0">
+        <div class="artist-top-tracks-container" *ngIf="topTracks?.tracks.length > 0">
           <app-top-tracks [topTrack]="topTrack" *ngFor="let topTrack of topTracks.tracks"></app-top-tracks>
         </div>
       </mat-tab>
       <mat-tab>
-        <ng-template mat-tab-label>Top Albums</ng-template>
+        <ng-template mat-tab-label>Albums</ng-template>
+        <div class="artist-albums-container" *ngIf="albums?.items.length > 0">
+          <app-albums [album]="album" *ngFor="let album of albums.items"></app-albums>
+        </div>
       </mat-tab>
     </mat-tab-group>
-    <!--    <mat-expansion-panel class="artist-panel mat-elevation-z10" expanded="true">-->
-    <!--      <mat-expansion-panel-header class="artist-panel-header">-->
-    <!--        <mat-panel-title>-->
-    <!--          Top Tracks-->
-    <!--        </mat-panel-title>-->
-    <!--        <mat-panel-description>-->
-    <!--          <mat-icon>album</mat-icon>-->
-    <!--        </mat-panel-description>-->
-    <!--      </mat-expansion-panel-header>-->
-    <!--      <div *ngIf="topTracks.tracks.length > 0">-->
-    <!--        <app-top-tracks [topTrack]="topTrack" *ngFor="let topTrack of topTracks.tracks"></app-top-tracks>-->
-    <!--      </div>-->
-    <!--      <iframe class="artist-iframe" [src]="artist.uri | uri" allowtransparency="true"-->
-    <!--              allow="encrypted-media"></iframe>-->
-    <!--    </mat-expansion-panel>-->
   </div>
 </mat-card>

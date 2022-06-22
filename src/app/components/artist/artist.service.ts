@@ -4,6 +4,7 @@ import {Observable, tap} from "rxjs";
 import {APIConstants} from "@shared/constants/api.constants";
 import {Artist} from "@shared/interfaces/artist";
 import {ArtistTopTracks} from "@shared/interfaces/artist-top-tracks";
+import {ArtistAlbum} from "@shared/interfaces/artist-album";
 
 @Injectable({
   providedIn: 'root'
@@ -25,6 +26,13 @@ export class ArtistService {
   getTopTracks(id: string): Observable<ArtistTopTracks[]> {
     const artistTopTrackUrl: string = APIConstants.API_URL + `/artists/${id}/top-tracks?market=us`;
     return this.http.get<ArtistTopTracks[]>(artistTopTrackUrl).pipe(
+      tap(() => `fetched artist top tracks ${id}`),
+    );
+  }
+
+  getArtistAlbums(id: string): Observable<ArtistAlbum[]> {
+    const artistAlbumsUrl: string = APIConstants.API_URL + `/artists/${id}/albums`;
+    return this.http.get<ArtistAlbum[]>(artistAlbumsUrl).pipe(
       tap(() => `fetched artist top tracks ${id}`),
     );
   }

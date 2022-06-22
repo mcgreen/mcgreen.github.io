@@ -1,7 +1,7 @@
 <div *ngIf="topTrack" class="container">
   <mat-card class="top-track-card">
     <mat-card-title-group>
-      <mat-card-title class="">
+      <mat-card-title>
         <div>
           {{topTrack.name}}
           <mat-chip matTooltip="EXPLICIT" disabled class="top-track-explicit" *ngIf="topTrack.explicit">E</mat-chip>
@@ -11,7 +11,7 @@
     <mat-card-subtitle>
       <div class="top-track-popularity">
         {{topTrack.popularity}}
-        <mat-icon matTooltipPosition="right" matTooltip="ARTIST POPULARITY" class="top-track-popularity-icon">whatshot
+        <mat-icon matTooltipPosition="right" matTooltip="TRACK POPULARITY" class="top-track-popularity-icon">whatshot
         </mat-icon>
       </div>
     </mat-card-subtitle>

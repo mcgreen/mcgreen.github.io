@@ -5,7 +5,6 @@ import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {CoreModule} from "@core/core.module";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import {LocalStorageService} from "@shared/services/local-storage.service";
 import {NavModule} from "@components/nav/nav.module";
 
 @NgModule({
@@ -19,8 +18,7 @@ import {NavModule} from "@components/nav/nav.module";
     CoreModule,
     NavModule
   ],
-  providers: [
-  ],
+  providers: [],
   exports: [],
   bootstrap: [AppComponent]
 })

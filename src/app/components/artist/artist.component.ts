@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {ArtistService} from "@components/artist/artist.service";
 import {ActivatedRoute} from "@angular/router";
 import {Artist} from "@shared/interfaces/artist";
-import {ArtistTopTracks} from "@shared/interfaces/artist-top-tracks";
 
 @Component({
   selector: 'app-artist',
@@ -14,6 +13,7 @@ export class ArtistComponent implements OnInit {
   artist: Artist | undefined;
   artistId: string = '';
   topTracks: any;
+  albums: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -25,6 +25,7 @@ export class ArtistComponent implements OnInit {
     this.getArtistId();
     this.getArtist();
     this.getArtistTopTracks();
+    this.getArtistAlbums();
   }
 
   getArtistId(): void {
@@ -40,6 +41,13 @@ export class ArtistComponent implements OnInit {
   getArtistTopTracks() {
     this.artistService.getTopTracks(this.artistId).subscribe(tracks => {
       this.topTracks = tracks;
+    });
+  }
+
+  getArtistAlbums() {
+    this.artistService.getArtistAlbums(this.artistId).subscribe(albums => {
+      console.log(albums);
+      this.albums = albums;
     });
   }
 }

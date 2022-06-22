@@ -3,6 +3,7 @@ import {LoggerService} from "@shared/services/logger.service";
 import {Store} from "../../../store";
 import {NewReleasesItem} from "@shared/interfaces/new-release";
 import {NewReleaseService} from "@components/home/new-releases/new-release.service";
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -11,7 +12,7 @@ import {NewReleaseService} from "@components/home/new-releases/new-release.servi
 })
 export class HomeComponent implements OnInit {
 
-  newReleases: NewReleasesItem[] = [];
+  newReleases: any;
 
   constructor(
     private logger: LoggerService,
@@ -22,13 +23,7 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getNewReleases();
-  }
-
-  getNewReleases(): void {
-    this.newReleasesService.getNewReleases().subscribe((response: any) => {
-      this.newReleases = response;
-    });
+    this.newReleases = this.newReleasesService.getNewReleases();
   }
 
 }

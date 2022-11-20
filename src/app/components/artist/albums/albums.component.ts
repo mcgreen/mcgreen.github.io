@@ -1,7 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {mergeMap, Observable} from "rxjs";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {ArtistService} from "@components/artist/artist.service";
+import {NewReleasesItem} from "@shared/interfaces/new-release";
 
 @Component({
   selector: 'app-albums',
@@ -15,6 +16,7 @@ export class AlbumsComponent {
   constructor(
     private route: ActivatedRoute,
     private artistService: ArtistService,
+    private router: Router,
   ) { }
 
   ngOnInit() {
@@ -25,6 +27,10 @@ export class AlbumsComponent {
 
   getArtistAlbums(id: string): Observable<any> {
     return this.artistService.getArtistAlbums(id);
+  }
+
+  goToAlbum(id: string) {
+    this.router.navigate(['/album', id]);
   }
 
 }

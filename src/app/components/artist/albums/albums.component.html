@@ -2,11 +2,11 @@
   <mat-card class="artist-album-card" *ngFor="let album of albums.items | orderBy: '!release_date'">
     <mat-card-title-group>
       <mat-card-title>
-        <div>
+        <div (click)="goToAlbum(album.id)">
           {{album.name}}
         </div>
       </mat-card-title>
     </mat-card-title-group>
-    <img  class="artist-album-image" [src]="album.images | image" alt="" />
+      <img (click)="goToAlbum(album.id)" class="artist-album-image" [src]="album.images | image" alt="" />
   </mat-card>
 </div>

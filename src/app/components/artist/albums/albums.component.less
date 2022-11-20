@@ -3,14 +3,14 @@
 .container {
   width: 100%;
   margin-top: 1em;
-  display: flex;
-  flex-direction: row;
+  display: inline-flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
 }
 
 .artist-album {
-  margin-bottom: 1em;
+  margin: 1em;
+  display: flex;
 
   &-card {
     margin-bottom: 1em;
@@ -18,18 +18,10 @@
     height: 250px;
   }
 
-  &-explicit {
-    border: 1px solid @accent-color;
-    margin-left: 0.2em;
-  }
-
-  &-popularity {
-    margin-right: 0.2em;
-    font-size: 30px;
-  }
-
-  &-popularity-icon {
-    font-size: 30px;
-    color: #DE541E;
+  &-image {
+    width: 80%;
+    height: 80%;
+    margin-left: 2em;
+    margin-top: 0.5em;
   }
 }

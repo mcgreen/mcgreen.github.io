@@ -1,12 +1,12 @@
 <div *ngIf="albums | async as albums" class="container">
-  <mat-card class="artist-album-card" *ngFor="let album of albums.items | orderBy: '!popularity'">
+  <mat-card class="artist-album-card" *ngFor="let album of albums.items | orderBy: '!release_date'">
     <mat-card-title-group>
       <mat-card-title>
         <div>
           {{album.name}}
-          <mat-chip matTooltip="EXPLICIT" disabled class="artist-album-explicit" *ngIf="album.explicit">E</mat-chip>
         </div>
       </mat-card-title>
     </mat-card-title-group>
+    <img  class="artist-album-image" [src]="album.images | image" alt="" />
   </mat-card>
 </div>

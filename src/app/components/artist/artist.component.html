@@ -1,4 +1,4 @@
-<mat-card *ngIf="artist" class="container">
+<mat-card *ngIf="artist | async as artist" class="container">
   <mat-card-title-group class="artist-title-group">
     <mat-card-title class="artist-title">{{artist.name}}</mat-card-title>
     <mat-card-subtitle>
@@ -31,14 +31,14 @@
             Top Tracks
           </div>
         </ng-template>
-        <div class="artist-top-tracks-container" *ngIf="topTracks?.tracks.length > 0">
-          <app-top-tracks [topTrack]="topTrack" *ngFor="let topTrack of topTracks.tracks"></app-top-tracks>
+        <div class="artist-top-tracks-container">
+          <app-top-tracks></app-top-tracks>
         </div>
       </mat-tab>
       <mat-tab>
         <ng-template mat-tab-label>Albums</ng-template>
-        <div class="artist-albums-container" *ngIf="albums?.items.length > 0">
-          <app-albums [album]="album" *ngFor="let album of albums.items"></app-albums>
+        <div class="artist-albums-container">
+          <app-albums></app-albums>
         </div>
       </mat-tab>
     </mat-tab-group>

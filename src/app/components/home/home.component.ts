@@ -4,6 +4,7 @@ import {Store} from "../../../store";
 import {NewReleasesItem} from "@shared/interfaces/new-release";
 import {NewReleaseService} from "@components/home/new-releases/new-release.service";
 import { Observable } from 'rxjs';
+import {SdkPlayerService} from "@shared/services/sdk-player.service";
 
 @Component({
   selector: 'app-home',
@@ -18,11 +19,12 @@ export class HomeComponent implements OnInit {
     private logger: LoggerService,
     private newReleasesService: NewReleaseService,
     private store: Store,
+    private playerService: SdkPlayerService,
   ) {
-    this.logger.log(this.store.value.access_token);
   }
 
   ngOnInit(): void {
+    // this.playerService.openPlayer();
     this.newReleases = this.newReleasesService.getNewReleases();
   }
 

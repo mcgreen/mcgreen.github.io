@@ -1,12 +1,12 @@
-<div *ngIf="topTrack" class="container">
-  <mat-card class="top-track-card">
+<div *ngIf="topTracks | async as topTracks" class="container">
+  <mat-card class="top-track-card" *ngFor="let topTrack of topTracks.tracks | orderBy: '!popularity'">
     <mat-card-title-group>
       <mat-card-title>
         <div>
           {{topTrack.name}}
           <mat-chip matTooltip="EXPLICIT" disabled class="top-track-explicit" *ngIf="topTrack.explicit">E</mat-chip>
         </div>
-        </mat-card-title>
+      </mat-card-title>
     </mat-card-title-group>
     <mat-card-subtitle>
       <div class="top-track-popularity">

@@ -1,5 +1,7 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {ArtistTopTracks} from "@shared/interfaces/artist-top-tracks";
+import {Component} from '@angular/core';
+import {ActivatedRoute} from "@angular/router";
+import {ArtistService} from "@components/artist/artist.service";
+import {mergeMap, Observable} from "rxjs";
 
 @Component({
   selector: 'app-top-tracks',
@@ -8,7 +10,20 @@ import {ArtistTopTracks} from "@shared/interfaces/artist-top-tracks";
 })
 export class TopTracksComponent {
 
-  @Input() topTrack: any;
+  topTracks: Observable<any> | undefined;
 
-  constructor() { }
+  constructor(
+    private route: ActivatedRoute,
+    private artistService: ArtistService,
+  ) { }
+
+  ngOnInit() {
+    this.topTracks = this.route.params.pipe(
+      mergeMap(params => this.getArtistTopTracks(params['id']))
+    );
+  }
+
+  getArtistTopTracks(id: string) {
+    return this.artistService.getTopTracks(id);
+  }
 }

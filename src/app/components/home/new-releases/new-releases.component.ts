@@ -13,7 +13,6 @@ export class NewReleasesComponent {
   @Input() item: NewReleasesItem | undefined;
 
   constructor(
-    private newReleaseService: NewReleaseService,
     private router: Router
   ) {
   }

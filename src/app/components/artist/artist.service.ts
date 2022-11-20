@@ -34,6 +34,7 @@ export class ArtistService {
     const artistAlbumsUrl: string = APIConstants.API_URL + `/artists/${id}/albums`;
     return this.http.get<ArtistAlbum[]>(artistAlbumsUrl).pipe(
       tap(() => `fetched artist top tracks ${id}`),
+      tap(item => console.log(item))
     );
   }
 }

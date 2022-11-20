@@ -9,7 +9,7 @@ import {BehaviorSubject, map, Observable, tap} from "rxjs";
 })
 export class NewReleaseService {
 
-  private newReleaseUrl: string = APIConstants.API_URL + APIConstants.API_NEW_RELEASES + '?limit=20';
+  private newReleaseUrl: string = APIConstants.API_URL + APIConstants.API_NEW_RELEASES + '?limit=50';
 
   constructor(
     private http: BaseHttpService,

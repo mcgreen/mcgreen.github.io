@@ -5,6 +5,7 @@ import { NavigationEnd, NavigationError, Router, RouterLink, RouterLinkActive, R
 import { filter } from 'rxjs';
 import { AuthService } from './core/auth/auth.service';
 import { BRAND } from './core/config';
+import { LayoutService } from './core/layout.service';
 import { PlayerService } from './core/player/player.service';
 import { safe } from './core/resource';
 import { SpotifyProfile } from './core/spotify/models';
@@ -28,6 +29,8 @@ export class App {
   protected readonly player = inject(PlayerService);
   protected readonly theme = inject(ThemeService);
   protected readonly visuals = inject(VisualsService);
+  /** Created at startup so data-shelves is on <html> before the first page renders. */
+  protected readonly layout = inject(LayoutService);
   private readonly router = inject(Router);
   private readonly api = inject(SpotifyApi);
   protected readonly brand = BRAND;

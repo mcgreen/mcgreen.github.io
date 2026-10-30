@@ -59,6 +59,12 @@
       (click)="visuals.toggle()"
       title="Full-screen visuals behind the app"
     >Blast {{ visuals.blast() ? 'on' : 'off' }}</button>
+    <button
+      class="btn btn-ghost tog shelf-tog"
+      type="button"
+      (click)="layout.toggle()"
+      title="Phones: swipe sections sideways, or show them as a list"
+    >Rows: {{ layout.shelves() }}</button>
     <button class="btn btn-ghost tog" type="button" (click)="theme.toggle()">
       {{ theme.theme() === 'heat' ? 'Retro mode' : 'Modern mode' }}
     </button>

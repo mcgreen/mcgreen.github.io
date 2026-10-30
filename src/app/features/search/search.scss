@@ -23,7 +23,8 @@
 .artists { @include shelf; }
 .grid { @include tile-grid; }
 
-.album {
+.album,
+.playlist {
   display: grid;
   gap: var(--space-1);
   padding: var(--space-3);
@@ -45,3 +46,63 @@
 }
 
 .year { font-size: var(--text-xs); }
+
+.note { margin: 0; font-size: var(--text-sm); }
+
+.open {
+  display: grid;
+  gap: var(--space-1);
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+
+  img,
+  .blank { @include cover; }
+}
+
+.blank { display: block; }
+
+.ext {
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  text-decoration: underline;
+}
+
+// List style on phones: results are compact rows with small art on the left, not tiles.
+.album {
+  @include list-mode {
+    grid-template-columns: 56px minmax(0, 1fr);
+    column-gap: var(--space-3);
+    align-items: center;
+    padding: var(--space-2);
+
+    img { grid-row: 1 / span 2; }
+    > :not(img) { grid-column: 2; }
+  }
+}
+
+.playlist {
+  @include list-mode { padding: var(--space-2); }
+}
+
+.open {
+  @include list-mode {
+    grid-template-columns: 56px minmax(0, 1fr);
+    column-gap: var(--space-3);
+    align-items: center;
+
+    img,
+    .blank { grid-row: 1 / span 2; }
+    .name,
+    .year { grid-column: 2; }
+  }
+}
+
+.ext {
+  @include list-mode { margin-left: calc(56px + var(--space-3)); }
+}

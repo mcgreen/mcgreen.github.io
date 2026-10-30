@@ -1,5 +1,5 @@
 import { httpResource } from '@angular/common/http';
-import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, input, signal } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { PlayerService } from '../../core/player/player.service';
 import { safe } from '../../core/resource';
@@ -49,6 +49,9 @@ const TABS: { id: Tab; label: string }[] = [
 export class Sidebar {
   private readonly api = inject(SpotifyApi);
   private readonly player = inject(PlayerService);
+
+  /** Leave out the main-nav card (the Library page on phones, where the top bar has the nav). */
+  readonly compact = input(false);
 
   protected readonly tabs = TABS;
   protected readonly tab = signal<Tab>('albums');

@@ -33,9 +33,14 @@ const TOKENS_KEY = 'sdash2.tokens';
 const VERIFIER_KEY = 'sdash2.pkce_verifier';
 const STATE_KEY = 'sdash2.pkce_state';
 
+/**
+ * Tokens live in sessionStorage: they survive a reload but are gone when the tab closes and are
+ * never shared with other tabs. Any copy an earlier version left in localStorage is removed.
+ */
 function readTokens(): Tokens | null {
   try {
-    const raw = localStorage.getItem(TOKENS_KEY);
+    localStorage.removeItem(TOKENS_KEY);
+    const raw = sessionStorage.getItem(TOKENS_KEY);
     return raw ? (JSON.parse(raw) as Tokens) : null;
   } catch {
     return null;
@@ -173,7 +178,7 @@ export class AuthService {
   logout(): void {
     this.tokens.set(null);
     try {
-      localStorage.removeItem(TOKENS_KEY);
+      sessionStorage.removeItem(TOKENS_KEY);
     } catch {
       /* storage unavailable */
     }
@@ -202,7 +207,7 @@ export class AuthService {
     };
     this.tokens.set(next);
     try {
-      localStorage.setItem(TOKENS_KEY, JSON.stringify(next));
+      sessionStorage.setItem(TOKENS_KEY, JSON.stringify(next));
     } catch {
       /* storage unavailable: session lasts until reload */
     }

@@ -15,9 +15,8 @@ import { TrackRow } from '../../shared/ui/track-row';
 const RANGES: TimeRange[] = ['short_term', 'medium_term', 'long_term'];
 
 /**
- * Artist page: the artist's albums, YOUR tracks by them, and (if Spotify still answers) their
- * top tracks with your heat next to global heat. Top tracks and popularity are documented as
- * removed, so everything built on them is optional and hides itself when missing.
+ * Artist page: the artist's albums and YOUR tracks by them with your heat. (The artist
+ * top-tracks endpoint is deprecated, so it is not used.)
  */
 @Component({
   selector: 'app-artist',
@@ -36,22 +35,11 @@ export class ArtistPage {
 
   private readonly artistRes = httpResource<SpotifyArtist>(() => this.api.req.artist(this.id()));
   private readonly albumsRes = httpResource<Paging<AlbumSummary>>(() => this.api.req.artistAlbums(this.id()));
-  /** Separate resource: this endpoint is officially gone, so its failure must never hide the page. */
-  private readonly topRes = httpResource<{ tracks: SpotifyTrack[] }>(() => this.api.req.artistTopTracks(this.id()));
 
   protected readonly artist = computed(() => safe(this.artistRes) ?? null);
   protected readonly albums = computed<AlbumSummary[]>(() => safe(this.albumsRes)?.items ?? []);
   protected readonly loading = computed(() => this.artistRes.isLoading() || this.albumsRes.isLoading());
   protected readonly error = computed(() => errorText(this.artistRes.error() ?? this.albumsRes.error()));
-
-  protected readonly topTracks = computed(() => {
-    const ranks = this.taste.trackRanks();
-    return (safe(this.topRes)?.tracks ?? []).map((track) => ({
-      track,
-      heat: ranks ? personalHeat(track.id, ranks) : null,
-      global: track.popularity ?? null,
-    }));
-  });
 
   protected readonly artistHeat = computed(() => {
     const ranks = this.taste.artistRanks();
@@ -76,10 +64,6 @@ export class ArtistPage {
 
   protected playArtist(a: SpotifyArtist): void {
     void this.player.play({ contextUri: a.uri });
-  }
-
-  protected playTop(i: number): void {
-    void this.player.play({ uris: this.topTracks().slice(i).map((r) => r.track.uri) });
   }
 
   protected playYours(i: number): void {

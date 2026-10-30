@@ -1,0 +1,114 @@
+<div class="page">
+  <header>
+    <h1>Heat Panel</h1>
+    <p class="muted">
+      A simulated 64×32 LED board, the layout a real panel on a Raspberry Pi would show, fed by
+      <a href="https://developer.spotify.com/documentation/soloist" target="_blank" rel="noopener noreferrer">Spotify Soloist</a>’s
+      local WebSocket. Try the demo first, then point it at a running Soloist.
+    </p>
+  </header>
+
+  <section class="board card" aria-label="LED panel">
+    <canvas #cv class="screen" role="img" [attr.aria-label]="summary()"></canvas>
+    <div class="modes" role="group" aria-label="Layout">
+      @for (l of layouts; track l.id) {
+        <button
+          type="button"
+          class="btn"
+          [class.btn-primary]="layout() === l.id"
+          [class.btn-ghost]="layout() !== l.id"
+          [attr.aria-pressed]="layout() === l.id"
+          (click)="layout.set(l.id)"
+        >{{ l.label }}</button>
+      }
+    </div>
+    <p class="note muted">
+      Everything on the board is real playback data: title, artist, cover art (shrunk to 32×32), position and play/pause.
+      Title and artist sit on one line each and line up; if either is too long, both scroll sideways together. The small record is the progress meter: it turns while playing and its rim fills to the end of the song. Pick a layout above: “Cover as backdrop” dims the cover behind the names, and “Flip” alternates a names screen with a cover screen. The demo cover is made-up artwork; “My top artists” uses your real covers.
+    </p>
+    @if (caption(); as c) {
+      <p class="caption">On the board: <b>{{ c }}</b></p>
+    }
+    @if (artFailed()) {
+      <p class="note muted">Cover art couldn’t be read (the image host may block cross-origin reads), so the record is shown instead.</p>
+    }
+  </section>
+
+  <section class="card controls" aria-label="Source">
+    <div class="modes" role="group" aria-label="Data source">
+      <button
+        type="button"
+        class="btn"
+        [class.btn-primary]="source() === 'demo'"
+        [class.btn-ghost]="source() !== 'demo'"
+        [attr.aria-pressed]="source() === 'demo'"
+        (click)="useDemo()"
+      >Demo</button>
+      @if (loggedIn()) {
+        <button
+          type="button"
+          class="btn"
+          [class.btn-primary]="source() === 'mine'"
+          [class.btn-ghost]="source() !== 'mine'"
+          [attr.aria-pressed]="source() === 'mine'"
+          (click)="useMine()"
+        >My top artists</button>
+      }
+      <button
+        type="button"
+        class="btn"
+        [class.btn-primary]="source() === 'soloist'"
+        [class.btn-ghost]="source() !== 'soloist'"
+        [attr.aria-pressed]="source() === 'soloist'"
+        (click)="useSoloist()"
+      >Soloist</button>
+    </div>
+
+    @if (source() === 'mine') {
+      <p class="muted">
+        A preview, not playback: one track from each of your top artists in random order, on a simulated clock.
+        Nothing is playing and nothing is sent to Spotify.
+      </p>
+    }
+
+    @if (source() === 'soloist') {
+      <label class="field">
+        <span>Soloist address (this computer only)</span>
+        <input
+          class="box"
+          type="text"
+          inputmode="url"
+          autocomplete="off"
+          spellcheck="false"
+          placeholder="127.0.0.1:9090"
+          [formField]="addressForm.address"
+        />
+      </label>
+      <p class="status" role="status">{{ status() }}</p>
+
+      @if (nowPlaying(); as np) {
+        <p>Now playing: <b>{{ np }}</b></p>
+      }
+      @if (upNext().length) {
+        <h2>Up next</h2>
+        <ol class="queue">
+          @for (t of upNext(); track $index) {
+            <li>{{ t.title || t.uri }} <span class="muted">{{ t.artists.join(', ') }}</span></li>
+          }
+        </ol>
+      }
+    }
+  </section>
+
+  <section class="card help">
+    <h2>Run Soloist</h2>
+    <pre><code>export SOLOIST_API_KEY=…   # from the Spotify developer dashboard; keep it out of git
+soloist --device-name "Heat Lab" --api-key "$SOLOIST_API_KEY" --ws 127.0.0.1:9090</code></pre>
+    <p class="muted">
+      Then pick “Heat Lab” in the Spotify app (same network) and start playing. This page only reads
+      (<code>get_state</code>, <code>get_queue</code>); it never sends playback commands. Soloist’s socket has no
+      authentication or TLS, so only loopback addresses are accepted here. Reach a Soloist on another machine through an
+      SSH tunnel or Tailscale, not by exposing the port.
+    </p>
+  </section>
+</div>

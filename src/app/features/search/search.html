@@ -3,7 +3,7 @@
   <input
     class="box"
     type="search"
-    placeholder="Artists, albums, tracks…"
+    placeholder="Artists, albums, tracks, playlists…"
     aria-label="Search Spotify"
     autofocus
     [formField]="searchForm.q"
@@ -28,6 +28,28 @@
             [heat]="artistHeat(a.id)"
             [globalHeat]="a.popularity ?? null"
           />
+        }
+      </div>
+    }
+    @if (playlists().length) {
+      <h2>Playlists</h2>
+      <p class="muted note">Spotify’s own editorial playlists may not show up here; Spotify limits them for third-party apps.</p>
+      <div class="grid">
+        @for (p of playlists(); track p.id) {
+          <div class="playlist card">
+            <button class="open" type="button" (click)="playPlaylist(p)" [attr.aria-label]="'Play playlist ' + p.name">
+              @if (p.images?.[0]?.url; as src) {
+                <img [src]="src" alt="" />
+              } @else {
+                <span class="blank" aria-hidden="true"></span>
+              }
+              <span class="name">{{ p.name }}</span>
+              <span class="muted year">{{ playlistMeta(p) }}</span>
+            </button>
+            @if (p.external_urls?.spotify; as url) {
+              <a class="ext" [href]="url" target="_blank" rel="noopener noreferrer">Open in Spotify</a>
+            }
+          </div>
         }
       </div>
     }

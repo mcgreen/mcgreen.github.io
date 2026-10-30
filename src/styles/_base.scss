@@ -187,21 +187,15 @@ html[data-blast] {
   .blast-canvas { opacity: 0.8; }
 
   // Pills and buttons sit on an opaque face over the visuals, so their labels never depend on
-  // what is drawn behind them. Selected pills keep the accent fill; no text effects on any button.
-  .btn,
-  .btn-icon {
-    text-shadow: none;
-    &:not(.active, .btn-primary, [aria-pressed='true'], [aria-current='page']) {
-      background: var(--surface);
-      color: var(--text);
-    }
-    &:hover:not(:disabled, .active, [aria-current='page']) { background: var(--surface-raised); }
+  // what is drawn behind them. :where() keeps these rules at the lowest specificity, so each
+  // component's own states (selected, pressed, hover, the accent play button) still win.
+  :where(.btn, .btn-icon) { text-shadow: none; }
+  :where(.btn, .btn-icon):not(:where(.btn-primary, .active, [aria-current='page'], [aria-pressed='true'])) {
+    background: var(--surface);
+    color: var(--text);
   }
-  .btn.active,
-  .btn[aria-current='page'] {
-    background: var(--accent);
-    color: var(--accent-contrast);
-    border-color: var(--accent);
+  :where(.btn, .btn-icon):not(:where(.btn-primary, .active, [aria-current='page'], [aria-pressed='true'])):hover:not(:disabled) {
+    background: var(--surface-raised);
   }
 }
 

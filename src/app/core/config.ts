@@ -12,21 +12,16 @@ export const SPOTIFY = {
   scopes: [
     // Playback via the Web Playback SDK (Premium)
     'streaming',
-    'user-read-playback-state',
     'user-modify-playback-state',
-    'user-read-currently-playing',
     // Taste and history
     'user-top-read',
     'user-read-recently-played',
     // Library and follows
     'user-library-read',
-    'user-library-modify',
     'user-follow-read',
-    // Playlists
+    // Playlists (read only; add the playlist-modify scopes when heat playlists ship)
     'playlist-read-private',
     'playlist-read-collaborative',
-    'playlist-modify-private',
-    'playlist-modify-public',
     // Search and profile
     'user-read-private',
   ],

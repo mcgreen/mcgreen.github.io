@@ -42,12 +42,8 @@ export class SpotifyApi {
       url: api(`/artists/${seg(id)}/albums`),
       params: { include_groups: 'album,single', limit },
     }),
-    /** Officially removed Feb 2026 but still answers for this app. Treat failure as "hide it". */
-    artistTopTracks: (id: string): HttpResourceRequest => ({ url: api(`/artists/${seg(id)}/top-tracks`) }),
-    /** Same caveat as artistTopTracks. */
-    newReleases: (limit = 20): HttpResourceRequest => ({ url: api('/browse/new-releases'), params: { limit } }),
     album: (id: string): HttpResourceRequest => ({ url: api(`/albums/${seg(id)}`) }),
-    search: (query: string, types: ('track' | 'artist' | 'album')[], limit = 5, offset = 0): HttpResourceRequest => ({
+    search: (query: string, types: ('track' | 'artist' | 'album' | 'playlist')[], limit = 5, offset = 0): HttpResourceRequest => ({
       url: api('/search'),
       params: { q: query, type: types.join(','), limit: Math.min(limit, SEARCH_MAX), offset },
     }),

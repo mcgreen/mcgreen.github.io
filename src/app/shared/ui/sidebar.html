@@ -1,8 +1,11 @@
-<nav class="nav card" aria-label="Main">
-  <a routerLink="/home" routerLinkActive="active">Home</a>
-  <a routerLink="/search" routerLinkActive="active">Search</a>
-  <a routerLink="/lab" routerLinkActive="active">API Lab</a>
-</nav>
+@if (!compact()) {
+  <nav class="nav card" aria-label="Main">
+    <a routerLink="/home" routerLinkActive="active">Home</a>
+    <a routerLink="/search" routerLinkActive="active">Search</a>
+    <a routerLink="/lab" routerLinkActive="active">API Lab</a>
+    <a routerLink="/panel" routerLinkActive="active">Heat Panel</a>
+  </nav>
+}
 
 <section class="lib card" aria-label="Your library">
   <h2>Your library</h2>

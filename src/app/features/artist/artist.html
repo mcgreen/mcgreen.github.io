@@ -33,15 +33,6 @@
       </div>
     </header>
 
-    @if (topTracks().length) {
-      <h2>Top tracks</h2>
-      <ol class="list">
-        @for (row of topTracks(); track row.track.id) {
-          <li><app-track-row [track]="row.track" [heat]="row.heat" [globalHeat]="row.global" (play)="playTop($index)" /></li>
-        }
-      </ol>
-    }
-
     @if (yourTracks().length) {
       <h2>Your tracks</h2>
       <ol class="list">

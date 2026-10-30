@@ -117,6 +117,13 @@
   }
 }
 
+// Only matters on phones, where it switches sections between swipe rows and a list.
+.shelf-tog {
+  display: none;
+
+  @include down('sm') { display: inline-flex; }
+}
+
 .vol {
   width: 110px;
   accent-color: var(--accent);

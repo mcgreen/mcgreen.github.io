@@ -38,6 +38,23 @@
     background: var(--surface-raised);
     border: 2px solid var(--border);
   }
+
+  // List style on phones: small art on the left, name and artist beside it.
+  @include list-mode {
+    width: 100%;
+    grid-template-columns: 56px minmax(0, 1fr);
+    column-gap: var(--space-3);
+    align-items: center;
+
+    img {
+      width: 56px;
+      height: 56px;
+      grid-row: 1 / span 2;
+    }
+
+    .rname,
+    .rartist { grid-column: 2; }
+  }
 }
 
 .rname {

@@ -1,0 +1,104 @@
+@use 'mixins' as *;
+
+.page {
+  @include page(var(--space-5));
+  min-width: 0;
+
+  > * { min-width: 0; }
+}
+
+.board {
+  padding: var(--space-4);
+
+  @include down('sm') { padding: var(--space-3); }
+  display: grid;
+  gap: var(--space-3);
+}
+
+.screen {
+  display: block;
+  width: 100%;
+  max-width: 768px;
+  aspect-ratio: 2 / 1;
+  margin: 0 auto;
+  border-radius: var(--radius-md);
+  background: var(--led-body);
+}
+
+.note { margin: 0; font-size: var(--text-sm); }
+
+.caption { margin: 0; }
+
+.controls {
+  padding: var(--space-4);
+  display: grid;
+  gap: var(--space-3);
+}
+
+.modes {
+  display: flex;
+  flex-wrap: wrap; // phones: buttons drop to the next line instead of stretching the page
+  gap: var(--space-2);
+
+  .btn {
+    padding: var(--space-2) var(--space-4);
+    font-size: var(--text-sm);
+    white-space: nowrap;
+  }
+}
+
+.field {
+  display: grid;
+  gap: var(--space-1);
+}
+
+.box {
+  width: 100%;
+  max-width: 22rem;
+  padding: var(--space-2) var(--space-3);
+  font: inherit;
+  font-family: var(--font-mono);
+  color: var(--text-strong);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+
+  &:focus {
+    border-color: var(--accent);
+    outline: none;
+    box-shadow: 0 0 0 3px var(--accent-glow);
+  }
+}
+
+.status { margin: 0; }
+
+.queue {
+  margin: 0;
+  padding-left: var(--space-5);
+  display: grid;
+  gap: var(--space-1);
+}
+
+.help {
+  padding: var(--space-4);
+  display: grid;
+  gap: var(--space-3);
+
+  pre {
+    margin: 0;
+    padding: var(--space-3);
+    overflow-x: auto;
+    @include down('sm') {
+      overflow-x: visible;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+    }
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    color: var(--text);
+    background: var(--surface-raised);
+    border-radius: var(--radius-sm);
+  }
+
+  p { margin: 0; }
+}

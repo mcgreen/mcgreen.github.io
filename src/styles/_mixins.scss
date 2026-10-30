@@ -24,6 +24,33 @@ $breakpoints: (
   }
 }
 
+/// The phone "list" style for shelves and grids: only under 640px and only while
+/// `html[data-shelves='list']` is set (the "Rows" toggle in the player bar). Use it inside an element
+/// rule of a component: `.tile { @include list-mode { ... } }`. For the component's host element,
+/// write `:host-context(html[data-shelves='list'])` out by hand inside `down('sm')`.
+@mixin list-mode {
+  @include down('sm') {
+    :host-context(html[data-shelves='list']) & {
+      @content;
+    }
+  }
+}
+
+/// A horizontally scrolling strip, phone style: only the strip scrolls (never the page), with no
+/// scrollbar, snapping to items, and bleeding to the screen edge so the next item peeks in.
+@mixin swipe-strip {
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x proximity;
+  scrollbar-width: none;
+  margin-inline: calc(-1 * var(--space-3));
+  padding-inline: var(--space-3);
+  scroll-padding-inline: var(--space-3);
+
+  &::-webkit-scrollbar { display: none; }
+  > * { scroll-snap-align: start; }
+}
+
 /// Only applies under the retro theme: `.card { @include retro { border: 0; } }`
 @mixin retro {
   html[data-theme='retro'] & {
@@ -125,7 +152,12 @@ $breakpoints: (
   margin: 0 auto;
   padding: var(--space-6) var(--space-5);
   display: grid;
+  // One column that can shrink below its content, so a wide child (track rows, shelves) can't
+  // stretch the whole page past the screen on a phone.
+  grid-template-columns: minmax(0, 1fr);
   gap: $gap;
+
+  @include down('sm') { padding: var(--space-4) var(--space-3); }
 }
 
 /// <ul>/<ol> with no bullets, rows separated by a gap.
@@ -134,22 +166,61 @@ $breakpoints: (
   margin: 0;
   padding: 0;
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: $gap;
 }
 
-/// Horizontal scrolling shelf.
+/// Horizontal scrolling shelf. On phones it is a swipe strip (see `swipe-strip`), or, with the
+/// "list" style on, a vertical list whose items turn into compact rows.
 @mixin shelf($gap: var(--space-4)) {
   display: flex;
   gap: $gap;
   overflow-x: auto;
   padding-bottom: var(--space-2);
+
+  @include down('sm') {
+    @include swipe-strip;
+    gap: var(--space-3);
+  }
+
+  @include list-mode {
+    flex-direction: column;
+    overflow-x: visible;
+    margin-inline: 0;
+    padding-inline: 0;
+    padding-bottom: 0;
+    scroll-snap-type: none;
+    gap: var(--space-2);
+  }
 }
 
-/// Responsive grid of equal tiles.
+/// Responsive grid of equal tiles. On phones it is one swipe strip of tiles (so a section stays short),
+/// or, with the "list" style on, a single column of compact rows.
 @mixin tile-grid($min: 150px) {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax($min, 1fr));
   gap: var(--space-4);
+
+  @include down('sm') {
+    @include swipe-strip;
+    grid-template-columns: none;
+    grid-auto-flow: column;
+    grid-auto-columns: 150px;
+    gap: var(--space-3);
+    padding-bottom: var(--space-2);
+  }
+
+  @include list-mode {
+    grid-auto-flow: row;
+    grid-auto-columns: auto;
+    grid-template-columns: minmax(0, 1fr);
+    overflow-x: visible;
+    margin-inline: 0;
+    padding-inline: 0;
+    padding-bottom: 0;
+    scroll-snap-type: none;
+    gap: var(--space-2);
+  }
 }
 
 /// Square cover art.

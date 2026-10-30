@@ -99,6 +99,8 @@ export interface SearchResults {
   tracks?: Paging<SpotifyTrack>;
   artists?: Paging<SpotifyArtist>;
   albums?: Paging<AlbumSummary>;
+  /** Search can return `null` entries among the playlists, so filter them out. */
+  playlists?: Paging<PlaylistSummary | null>;
 }
 
 export interface StartPlaybackBody {
@@ -139,7 +141,11 @@ export interface PlaylistSummary {
   name: string;
   uri: string;
   images?: SpotifyImage[] | null;
-  owner: { display_name?: string };
+  owner: { display_name?: string | null };
+  external_urls?: { spotify?: string };
+  /** Track counts: `items` is the current name, `tracks` the deprecated one. Either may be absent. */
+  items?: { total?: number } | null;
+  tracks?: { total?: number } | null;
 }
 
 /**

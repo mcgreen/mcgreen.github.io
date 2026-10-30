@@ -8,6 +8,18 @@
   flex: none;
 }
 
+// List style on phones: a row (avatar and name on the left, the heat meters on the right).
+@include down('sm') {
+  :host-context(html[data-shelves='list']) {
+    width: 100%;
+    grid-template-columns: minmax(0, 1fr) auto;
+    justify-items: stretch;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-1) 0;
+  }
+}
+
 .chip {
   display: grid;
   justify-items: center;
@@ -15,6 +27,15 @@
   color: var(--canvas-text);
   text-align: center;
   font-size: var(--text-sm);
+
+  @include list-mode {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    min-width: 0;
+    text-align: left;
+    font-size: var(--text-md);
+  }
 
   &:hover {
     text-decoration: none;
@@ -31,9 +52,22 @@ img {
   object-fit: cover;
   background: var(--surface-raised);
   border: 2px solid var(--border);
+
+  @include list-mode {
+    width: 48px;
+    height: 48px;
+    flex: none;
+  }
 }
 
-.name { @include line-clamp(2); }
+.name {
+  @include line-clamp(2);
+
+  @include list-mode {
+    @include line-clamp(1);
+    min-width: 0;
+  }
+}
 
 .meters {
   display: grid;

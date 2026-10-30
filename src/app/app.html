@@ -13,9 +13,12 @@
       <nav class="mini-nav" aria-label="Main">
         <a routerLink="/home" routerLinkActive="active">Home</a>
         <a routerLink="/search" routerLinkActive="active">Search</a>
+        <a routerLink="/library" routerLinkActive="active">Library</a>
         <a routerLink="/lab" routerLinkActive="active">Lab</a>
+        <a routerLink="/panel" routerLinkActive="active">Panel</a>
       </nav>
       <span class="spacer"></span>
+      <a class="attrib" href="https://open.spotify.com" target="_blank" rel="noopener noreferrer">Content from Spotify</a>
       @if (me(); as who) {
         <span class="me" [title]="who.product + ' account'">
           @if (who.images[0]?.url; as src) {

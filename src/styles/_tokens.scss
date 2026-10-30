@@ -42,6 +42,13 @@
   --black-55: rgb(0 0 0 / 0.55);
   --white-12: rgb(255 255 255 / 0.12);
 
+  /* ---- Heat Panel: the simulated LED board is a piece of hardware, so these are the same in every theme ---- */
+  --led-body: var(--vinyl-950);
+  --led-off: var(--ink-850);
+  --led-title: var(--ink-0);
+  --led-artist: var(--heat-300);
+  --led-progress-track: var(--ink-700);
+
   /* ---- Semantic: status badges (same in every theme) ---- */
   --status-ok-bg: var(--green-600);
   --status-bad-bg: var(--red-700);

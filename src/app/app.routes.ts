@@ -10,11 +10,14 @@ export const routes: Routes = [
   },
   { path: 'home', canActivate: [authGuard], loadComponent: () => import('./features/home/home').then((m) => m.Home) },
   { path: 'search', canActivate: [authGuard], loadComponent: () => import('./features/search/search').then((m) => m.SearchPage) },
+  { path: 'library', canActivate: [authGuard], loadComponent: () => import('./features/library/library').then((m) => m.Library) },
   { path: 'artist/:id', canActivate: [authGuard], loadComponent: () => import('./features/artist/artist').then((m) => m.ArtistPage) },
   { path: 'album/:id', canActivate: [authGuard], loadComponent: () => import('./features/album/album').then((m) => m.AlbumPage) },
   { path: 'show/:id', canActivate: [authGuard], loadComponent: () => import('./features/show/show').then((m) => m.ShowPage) },
   { path: 'audiobook/:id', canActivate: [authGuard], loadComponent: () => import('./features/audiobook/audiobook').then((m) => m.AudiobookPage) },
   { path: 'lab', canActivate: [authGuard], loadComponent: () => import('./features/lab/lab').then((m) => m.Lab) },
+  // Heat Panel only talks to a local Soloist, never to Spotify's API, so it needs no login.
+  { path: 'panel', loadComponent: () => import('./features/panel/panel').then((m) => m.Panel) },
   // Design system kit: public so it can be reviewed without logging in.
   { path: 'kit', loadComponent: () => import('./features/kit/kit').then((m) => m.Kit) },
   { path: '**', redirectTo: 'home' },

@@ -59,3 +59,16 @@
   font-size: var(--text-xs);
   text-transform: capitalize;
 }
+
+// List style on phones: albums and singles are compact rows with small art on the left.
+.album {
+  @include list-mode {
+    grid-template-columns: 56px minmax(0, 1fr);
+    column-gap: var(--space-3);
+    align-items: center;
+    padding: var(--space-2);
+
+    img { grid-row: 1 / span 2; }
+    > :not(img) { grid-column: 2; }
+  }
+}

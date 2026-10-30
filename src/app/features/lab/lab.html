@@ -1,0 +1,36 @@
+<h1>API Lab</h1>
+<p class="muted">
+  Calls each Spotify endpoint with your token and reports what comes back. Read-only; nothing is changed.
+  Rows marked <b>surprise</b> disagree with the documentation.
+</p>
+<p><button class="btn btn-primary" type="button" [disabled]="running()" (click)="run()">
+  {{ running() ? 'Probing…' : done() ? 'Run again' : 'Run all probes' }}
+</button>
+<button class="btn btn-ghost" type="button" [disabled]="running() || !done()" (click)="download()">
+  Download shapes (.md)
+</button></p>
+
+@for (g of groups; track g) {
+  <section class="card">
+    <h2>{{ g }}</h2>
+    <ul>
+      @for (r of rowsOf(g); track r.label) {
+        <li>
+          <button type="button" class="row" (click)="toggle(r.label)" [attr.aria-expanded]="open() === r.label">
+            <span class="badge" [attr.data-v]="r.verdict">{{ text(r) }}</span>
+            <span class="name">{{ r.label }}</span>
+            @if (surprise(r)) { <span class="surprise">surprise</span> }
+            <code class="path">{{ r.status ?? '' }}</code>
+          </button>
+          @if (open() === r.label) {
+            <div class="detail">
+              <p class="muted">Inferred shape (no personal values):</p>
+              <pre>{{ shape(r) }}</pre>
+              <details><summary>Raw response</summary><pre>{{ r.body || 'No body.' }}</pre></details>
+            </div>
+          }
+        </li>
+      }
+    </ul>
+  </section>
+}

@@ -1,0 +1,41 @@
+<div class="row card">
+  @if (rank(); as r) {
+    <span class="rank">{{ r }}</span>
+  }
+  @if (art(); as src) {
+    @if (track().album; as al) {
+      <a [routerLink]="['/album', al.id]" tabindex="-1" aria-hidden="true"><img class="art" [src]="src" alt="" /></a>
+    }
+  }
+  <div class="meta">
+    @if (track().album; as al) {
+      <a class="title" [routerLink]="['/album', al.id]">{{ track().name }}</a>
+    } @else {
+      <span class="title">{{ track().name }}</span>
+    }
+    @if (track().explicit) {
+      <span class="explicit" title="Explicit">E</span>
+    }
+    <div class="artists muted">
+      @for (a of track().artists; track a.id; let last = $last) {
+        <a [routerLink]="['/artist', a.id]">{{ a.name }}</a>@if (!last) {<span>, </span>}
+      }
+    </div>
+  </div>
+  @if (heat() !== null || globalHeat() !== null) {
+    <div class="heat">
+      @if (heat() !== null) {
+        <span class="who">You <app-meter [value]="heat() ?? 0" label="Your heat" /></span>
+      }
+      @if (globalHeat() !== null) {
+        <span class="who">World <app-meter [value]="globalHeat() ?? 0" label="Global heat" /></span>
+      }
+      @if (gapLabel() || note()) {
+        <span class="note">{{ gapLabel() || note() }}</span>
+      }
+    </div>
+  }
+  <button class="btn-icon play" type="button" (click)="play.emit()" [attr.aria-label]="'Play ' + track().name">
+    <app-icon name="play" />
+  </button>
+</div>

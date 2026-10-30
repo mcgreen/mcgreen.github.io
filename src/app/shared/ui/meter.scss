@@ -1,0 +1,96 @@
+@use 'mixins' as *;
+
+:host {
+  display: inline-block;
+  position: relative;
+  cursor: default;
+
+  &:focus-visible { @include focus-ring; }
+}
+/*
+ * Hover badge: a flame that mirrors the score. It fills from the bottom to the score,
+ * grows and shifts colour as the score rises, and flickers faster when hotter.
+ * --p is 0..1. Show/hide is pure CSS so it appears instantly.
+ */
+.flame {
+  display: none;
+  position: absolute;
+  bottom: calc(100% + 2px);
+  left: 50%;
+  width: 0;
+  height: 0;
+  z-index: 50;
+  pointer-events: none;
+}
+:host(:hover) .flame,
+:host(:focus-visible) .flame { display: block; }
+
+.body {
+  --size: calc(34px + var(--p) * 30px);
+  /* Cold (blue) near 0, warming to the low colour by ~25, then toward the high colour. */
+  --warm: color-mix(in srgb, var(--flame-low) clamp(0%, calc(var(--p) * 400%), 100%), var(--flame-cold));
+  --hot: color-mix(in srgb, var(--flame-high) calc(var(--p) * 100%), var(--warm));
+  position: absolute;
+  bottom: 0;
+  left: calc(var(--size) / -2);
+  width: var(--size);
+  height: calc(var(--size) * 1.31);
+  transform-origin: 50% 100%;
+  filter: drop-shadow(0 0 calc(2px + var(--p) * 10px) var(--hot)) drop-shadow(0 4px 6px var(--black-50));
+  animation:
+    pop 160ms cubic-bezier(0.2, 1.6, 0.4, 1) both,
+    flicker calc(1.1s - var(--p) * 0.75s) ease-in-out 160ms infinite;
+}
+svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; stroke: var(--flame-stroke); stroke-width: 1.5; stroke-linejoin: round; }
+.ghost { fill: var(--flame-ghost); }
+.fill {
+  fill: var(--hot);
+  clip-path: inset(var(--rest) 0 0 0);
+  animation: rise 380ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+b {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 22%;
+  text-align: center;
+  font: var(--weight-black) calc(12px + var(--p) * 5px) / 1 var(--font-sans);
+  font-variant-numeric: tabular-nums;
+  color: var(--white);
+  paint-order: stroke fill;
+  -webkit-text-stroke: 3px var(--black);
+}
+.tag {
+  position: absolute;
+  bottom: calc(100% + 3px);
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 0 6px;
+  font: var(--weight-bold) 10px / 1.5 var(--font-sans);
+  font-style: normal;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--white);
+  background: var(--black);
+  border-radius: var(--radius-sm);
+}
+@keyframes pop { from { transform: scale(0.3); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+@keyframes rise { from { clip-path: inset(100% 0 0 0); } }
+@keyframes flicker {
+  0%, 100% { transform: scale(1, 1) skewX(0deg); }
+  25% { transform: scale(0.97, 1.06) skewX(calc(var(--p) * -4deg)); }
+  55% { transform: scale(1.03, 0.96) skewX(calc(var(--p) * 3deg)); }
+  80% { transform: scale(0.98, 1.04) skewX(calc(var(--p) * -2deg)); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .body, .fill { animation: none; }
+}
+.meter { display: flex; gap: 2px; height: 14px; align-items: stretch; }
+.seg {
+  width: 6px;
+  border-radius: 2px;
+  background: var(--border);
+  transition: background var(--duration-med) var(--ease-out);
+}
+.seg.on { background: var(--seg-color); box-shadow: 0 0 8px -2px var(--seg-color); }

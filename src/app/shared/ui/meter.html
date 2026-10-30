@@ -1,0 +1,22 @@
+<div
+  class="meter"
+  role="meter"
+  aria-valuemin="0"
+  aria-valuemax="100"
+  [attr.aria-valuenow]="rounded()"
+  [attr.aria-label]="label()"
+>
+  @for (seg of segments(); track seg.i) {
+    <span class="seg" [class.on]="seg.on" [style.--seg-color]="seg.color"></span>
+  }
+  <span class="flame" aria-hidden="true" [style.--p]="pct()" [style.--rest]="100 - rounded() + '%'">
+    <span class="body">
+      <svg viewBox="0 0 32 42" focusable="false">
+        <path class="ghost" [attr.d]="path" />
+        <path class="fill" [attr.d]="path" />
+      </svg>
+      <b>{{ rounded() }}</b>
+      <i class="tag">{{ word() }}</i>
+    </span>
+  </span>
+</div>

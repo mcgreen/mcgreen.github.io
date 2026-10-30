@@ -1,0 +1,55 @@
+<div class="page">
+  <h1>Search</h1>
+  <input
+    class="box"
+    type="search"
+    placeholder="Artists, albums, tracks…"
+    aria-label="Search Spotify"
+    autofocus
+    [formField]="searchForm.q"
+  />
+
+  @if (error(); as err) {
+    <p class="error" role="alert">{{ err }}</p>
+  }
+  @if (loading()) {
+    <p class="muted" role="status">Searching…</p>
+  }
+
+  @if (results()) {
+    @if (artists().length) {
+      <h2>Artists</h2>
+      <div class="artists">
+        @for (a of artists(); track a.id) {
+          <app-artist-chip
+            [id]="a.id"
+            [name]="a.name"
+            [image]="a.images[0]?.url ?? null"
+            [heat]="artistHeat(a.id)"
+            [globalHeat]="a.popularity ?? null"
+          />
+        }
+      </div>
+    }
+    @if (albums().length) {
+      <h2>Albums</h2>
+      <div class="grid">
+        @for (al of albums(); track al.id) {
+          <a class="album card" [routerLink]="['/album', al.id]">
+            <img [src]="al.images[0]?.url ?? ''" alt="" />
+            <span class="name">{{ al.name }}</span>
+            <span class="muted year">{{ al.artists[0]?.name }}</span>
+          </a>
+        }
+      </div>
+    }
+    @if (tracks().length) {
+      <h2>Tracks</h2>
+      <ol class="list">
+        @for (t of tracks(); track t.id; let i = $index) {
+          <li><app-track-row [track]="t" [heat]="trackHeat(t.id)" [globalHeat]="t.popularity ?? null" (play)="playTrack(i)" /></li>
+        }
+      </ol>
+    }
+  }
+</div>

@@ -1,0 +1,51 @@
+<nav class="nav card" aria-label="Main">
+  <a routerLink="/home" routerLinkActive="active">Home</a>
+  <a routerLink="/search" routerLinkActive="active">Search</a>
+  <a routerLink="/lab" routerLinkActive="active">API Lab</a>
+</nav>
+
+<section class="lib card" aria-label="Your library">
+  <h2>Your library</h2>
+  <div class="chips" role="tablist">
+    @for (t of tabs; track t.id) {
+      <button
+        type="button"
+        role="tab"
+        class="chip"
+        [class.on]="tab() === t.id"
+        [attr.aria-selected]="tab() === t.id"
+        (click)="tab.set(t.id)"
+      >{{ t.label }}</button>
+    }
+  </div>
+  <input
+    class="filter"
+    type="search"
+    placeholder="Filter"
+    aria-label="Filter your library"
+    (input)="filter.set($any($event.target).value)"
+  />
+
+  <ul class="items">
+    @if (loading()) {
+      <li class="muted note">Loading…</li>
+    } @else if (!shown().length) {
+      <li class="muted note">{{ filter() ? 'No matches.' : 'Nothing here yet.' }}</li>
+    }
+    @for (it of shown(); track it.key) {
+      <li>
+        @if (it.link; as link) {
+          <a class="item" [routerLink]="link">
+            <img [class.round]="it.round" [src]="it.image ?? ''" alt="" />
+            <span class="txt"><span class="name">{{ it.name }}</span><span class="sub muted">{{ it.sub }}</span></span>
+          </a>
+        } @else {
+          <button class="item" type="button" (click)="play(it)" [attr.aria-label]="'Play ' + it.name">
+            <img [src]="it.image ?? ''" alt="" />
+            <span class="txt"><span class="name">{{ it.name }}</span><span class="sub muted">{{ it.sub }}</span></span>
+          </button>
+        }
+      </li>
+    }
+  </ul>
+</section>

@@ -1,0 +1,51 @@
+@use 'mixins' as *;
+
+:host {
+  // The Home page already centres and pads the column: fill it, don't re-centre.
+  display: grid;
+  gap: var(--space-4);
+  width: 100%;
+  min-width: 0;
+}
+
+.lede { max-width: 40rem; }
+.tabs { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+.tabs .active { background: var(--accent); color: var(--accent-contrast); border-color: var(--accent); }
+.error { color: var(--danger); }
+.section { margin-top: var(--space-4); }
+.tracks { @include plain-list; }
+.shelf { @include shelf; }
+.artists { @include shelf; }
+
+.release {
+  display: grid;
+  gap: 2px;
+  width: 140px;
+  flex: none;
+  color: var(--canvas-text);
+  font-size: var(--text-sm);
+
+  &:hover {
+    text-decoration: none;
+    color: var(--canvas-link);
+  }
+
+  img {
+    width: 140px;
+    height: 140px;
+    border-radius: var(--radius-sm);
+    object-fit: cover;
+    background: var(--surface-raised);
+    border: 2px solid var(--border);
+  }
+}
+
+.rname {
+  font-weight: var(--weight-bold);
+  @include line-clamp(2);
+}
+
+.rartist {
+  color: var(--canvas-text-muted);
+  font-size: var(--text-xs);
+}

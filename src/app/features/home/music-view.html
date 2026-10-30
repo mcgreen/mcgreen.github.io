@@ -1,0 +1,87 @@
+<h2 class="lede-title">Your heat</h2>
+<p class="muted lede">
+  Heat is how high something sits in <em>your</em> top lists, weighted toward what you play most lately.
+</p>
+
+<div class="tabs" role="tablist">
+  @for (r of ranges; track r.id) {
+    <button
+      type="button"
+      role="tab"
+      class="btn btn-ghost"
+      [class.active]="range() === r.id"
+      [attr.aria-selected]="range() === r.id"
+      (click)="range.set(r.id)"
+    >{{ r.label }}</button>
+  }
+</div>
+
+@if (error(); as err) {
+  <p class="error" role="alert">{{ err }}</p>
+}
+@if (loading()) {
+  <p class="muted" role="status">Loading your listening…</p>
+}
+
+@if (topArtists().length) {
+  <h2 class="section">Top artists</h2>
+  <div class="artists">
+    @for (a of topArtists(); track a.id) {
+      <app-artist-chip [id]="a.id" [name]="a.name" [image]="a.images[0]?.url ?? null" [heat]="a.heat" [globalHeat]="a.global" />
+    }
+  </div>
+}
+
+@if (albums().length) {
+  <h2 class="section">Top albums</h2>
+  <div class="shelf">
+    @for (al of albums(); track al.id) {
+      <app-album-card
+        [id]="al.id"
+        [name]="al.name"
+        [image]="al.image"
+        [subtitle]="al.artist + ' · ' + al.tracks + (al.tracks === 1 ? ' track' : ' tracks')"
+        [heat]="al.heat"
+        [globalHeat]="worldHeat().get(al.id) ?? null"
+      />
+    }
+  </div>
+}
+
+<h2 class="section">Top tracks</h2>
+<ol class="tracks">
+  @for (row of rows(); track row.track.id) {
+    <li>
+      <app-track-row
+        [track]="row.track"
+        [rank]="row.rank"
+        [heat]="row.heat"
+        [globalHeat]="row.global"
+        [note]="row.trend"
+        (play)="play(row.rank - 1)"
+      />
+    </li>
+  }
+</ol>
+
+@if (releases().length) {
+  <h2 class="section">New releases</h2>
+  <div class="shelf">
+    @for (al of releases(); track al.id) {
+      <a class="release" [routerLink]="['/album', al.id]">
+        <img [src]="al.images[0]?.url ?? ''" alt="" />
+        <span class="rname">{{ al.name }}</span>
+        <span class="rartist">{{ al.artists[0]?.name }}</span>
+      </a>
+    }
+  </div>
+}
+
+@if (recentRows().length) {
+  <h2 class="section">Recently played</h2>
+  <ol class="tracks">
+    @for (t of recentRows(); track $index) {
+      <li><app-track-row [track]="t.track" [heat]="t.heat" [globalHeat]="t.global" (play)="playRecent($index)" /></li>
+    }
+  </ol>
+}

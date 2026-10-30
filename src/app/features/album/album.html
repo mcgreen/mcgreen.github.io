@@ -1,0 +1,47 @@
+<div class="page">
+  @if (error(); as err) {
+    <p class="error" role="alert">{{ err }}</p>
+  }
+  @if (album(); as al) {
+    <header class="hero">
+      <img class="cover" [src]="al.images[0]?.url ?? ''" alt="" />
+      <div class="info">
+        <p class="muted kind">{{ al.album_type }}</p>
+        <h1>{{ al.name }}</h1>
+        <p class="byline">
+          @for (a of al.artists; track a.id; let last = $last) {
+            <a [routerLink]="['/artist', a.id]">{{ a.name }}</a>@if (!last) {<span>, </span>}
+          }
+          <span class="muted"> · {{ al.release_date?.slice(0, 4) }} · {{ al.total_tracks }} tracks</span>
+        </p>
+        <div class="meters">
+          @if (albumHeat() !== null) {
+            <span class="who">Your heat <app-meter [value]="albumHeat() ?? 0" label="Your heat for this album" /></span>
+          }
+          @if (al.popularity !== undefined) {
+            <span class="who">World heat <app-meter [value]="al.popularity" label="World heat for this album" /></span>
+          }
+        </div>
+        <button class="btn btn-primary" type="button" (click)="playAlbum(al)">
+          <app-icon name="play" /> Play album
+        </button>
+      </div>
+    </header>
+
+    <ol class="list">
+      @for (row of rows(); track row.track.id) {
+        <li>
+          <app-track-row
+            [track]="row.track"
+            [rank]="row.n"
+            [heat]="row.heat"
+            [globalHeat]="row.global"
+            (play)="playFrom(al, row.track.uri)"
+          />
+        </li>
+      }
+    </ol>
+  } @else if (loading()) {
+    <p class="muted" role="status">Loading…</p>
+  }
+</div>

@@ -1,0 +1,40 @@
+<h2>Your podcasts</h2>
+<p class="muted lede">
+  Spotify gives no popularity or listening history for podcasts, so there is no heat here, only what your
+  library really holds. Open a show for its episodes.
+</p>
+
+@if (error(); as err) {
+  <p class="error" role="alert">{{ err }}</p>
+}
+@if (loading()) {
+  <p class="muted" role="status">Loading your podcasts…</p>
+}
+
+@if (items().length) {
+  <dl class="stats">
+    <div class="card stat"><dt class="muted">Shows</dt><dd>{{ stats().shows }}</dd></div>
+    <div class="card stat"><dt class="muted">Episodes available</dt><dd>{{ stats().episodes.toLocaleString() }}</dd></div>
+    <div class="card stat wide"><dt class="muted">Latest add</dt><dd>{{ stats().newest }}</dd></div>
+  </dl>
+
+  <div class="sorts" role="group" aria-label="Sort">
+    @for (s of sorts; track s.id) {
+      <button
+        type="button"
+        class="btn btn-ghost"
+        [class.active]="sort() === s.id"
+        [attr.aria-pressed]="sort() === s.id"
+        (click)="sort.set(s.id)"
+      >{{ s.label }}</button>
+    }
+  </div>
+
+  <div class="grid">
+    @for (it of sorted(); track it.id) {
+      <app-album-card [id]="it.id" [name]="it.name" [image]="it.image" [subtitle]="it.subtitle" [link]="['/show', it.id]" />
+    }
+  </div>
+} @else if (!loading() && !error()) {
+  <p class="muted">No saved podcasts yet.</p>
+}

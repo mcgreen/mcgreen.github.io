@@ -1,0 +1,123 @@
+@use 'mixins' as *;
+
+// Above the blast canvas (which is fixed at z-index 0).
+.shell {
+  position: relative;
+  z-index: 1;
+
+  &.in {
+    height: 100vh;
+    display: grid;
+    grid-template-columns: 300px minmax(0, 1fr);
+    grid-template-rows: auto minmax(0, 1fr) auto;
+    gap: var(--space-2);
+    padding: var(--space-2);
+
+    .content {
+      grid-column: 2;
+      grid-row: 2;
+      min-width: 0;
+      min-height: 0;
+      overflow-y: auto;
+      border-radius: var(--radius-md);
+    }
+
+    @include down('md') {
+      grid-template-columns: minmax(0, 1fr);
+
+      .content { grid-column: 1; }
+    }
+  }
+}
+
+.topbar {
+  grid-column: 1 / -1;
+  grid-row: 1;
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-1) var(--space-3);
+
+  .btn {
+    padding: var(--space-1) var(--space-4);
+    font-size: var(--text-sm);
+  }
+}
+
+.side {
+  grid-column: 1;
+  grid-row: 2;
+  min-height: 0;
+
+  @include down('md') { display: none; }
+}
+
+.dock {
+  grid-column: 1 / -1;
+  grid-row: 3;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  color: var(--text-strong);
+  font-weight: var(--weight-black);
+  font-size: var(--text-lg);
+  letter-spacing: -0.02em;
+
+  &:hover { text-decoration: none; }
+}
+
+.spacer { flex: 1; }
+
+.mini-nav {
+  display: none;
+  gap: var(--space-1);
+
+  @include down('md') { display: flex; }
+
+  a {
+    padding: var(--space-1) var(--space-3);
+    border-radius: var(--radius-pill);
+    color: var(--text-muted);
+    font-weight: var(--weight-medium);
+
+    &.active {
+      color: var(--text-strong);
+      background: var(--surface-raised);
+    }
+  }
+}
+
+.me {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--canvas-text);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-bold);
+
+  img {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  .who {
+    @include down('md') { display: none; }
+  }
+}
+
+.splash {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: var(--space-5);
+  background: var(--bg);
+  color: var(--canvas-text-muted);
+}

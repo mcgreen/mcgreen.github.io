@@ -1,27 +1,45 @@
-# Sdash
+# sdash v2 ("Heat")
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.3.1.
+Fresh Angular 22 build of the Spotify dashboard. See `TODO.md` for the plan and
+`docs/spotify-api-notes.md` for what the Spotify API offers now.
 
-## Development server
+## First run
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+1. Use Node `^22.22.3`, `^24.15.0` or `^26` (Angular 22 requirement). Check with `node -v`.
+2. `npm install`
+3. `npm start`, then open **http://127.0.0.1:4200/** (not `localhost`: Spotify no longer accepts it).
+4. In the Spotify Developer Dashboard, the app must list the redirect URI
+   `http://127.0.0.1:4200/login` (already registered for v1).
 
-## Code scaffolding
+The design kit is at `/kit` and works without logging in.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Status
 
-## Build
+Type- and template-checked with the real Angular compiler (`ngc`) and every `.scss` file compiled
+with Sass. A full `ng build` has not been run by the author's tooling (esbuild's native binary is
+platform-specific), so run `npm install` (adds `@angular/forms`) then `npm start` and report any error.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## Conventions
 
-## Running unit tests
+Read `CLAUDE.md` (also `AGENTS.md`). The official Angular skill lives in `.agents/skills/angular-developer`
+(`.claude/skills` points at it). Short version: signals + resources (`httpResource` for reads, guard
+`value()` with `hasValue()`), `@Service()`, Signal Forms, no `setTimeout`, effects sparingly, SCSS with
+design tokens only (no raw colours outside `_tokens.scss`).
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Layout
 
-## Running end-to-end tests
+```
+src/styles.scss       global entry: @use tokens + base
+src/styles/           _tokens.scss (palette + semantic tokens + themes), _mixins.scss, _base.scss
+src/app/core/         auth (PKCE), spotify API client (req.* for httpResource), player, theme, taste (top lists), heat maths
+src/app/shared/ui/    record, meter, icon, player-bar, sidebar, cards, media-row
+src/app/features/     login, home (Music / Podcasts / Audiobooks toggle), album, artist, show, audiobook, search, lab, kit
+```
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
 
-## Further help
+## Deploy (GitHub Pages)
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+`.github/workflows/deploy.yml` builds on every push to `main` and publishes to
+`https://<user>.github.io/<repo>/`. One-time: repo Settings > Pages > Source = "GitHub Actions".
+Add `https://<user>.github.io/<repo>/login` to the Redirect URIs in the Spotify Developer Dashboard
+(the dev URI `http://127.0.0.1:4200/login` stays). Nothing secret is built in: the client id is public (PKCE).

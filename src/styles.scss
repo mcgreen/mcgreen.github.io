@@ -1,0 +1,4 @@
+// Global styles. Order matters: tokens (CSS custom properties) first, then base.
+// Component styles live next to their component (*.scss) and `@use 'mixins' as *;`.
+@use 'styles/tokens';
+@use 'styles/base';

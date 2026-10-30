@@ -1,0 +1,51 @@
+<h2>Your audiobooks</h2>
+<p class="muted lede">
+  Spotify gives no popularity or listening history for audiobooks, so there is no heat here, only what your
+  library really holds. Open a book for its chapters.
+</p>
+
+@if (error(); as err) {
+  <p class="error" role="alert">{{ err }}</p>
+}
+@if (loading()) {
+  <p class="muted" role="status">Loading your audiobooks…</p>
+}
+
+@if (items().length) {
+  <dl class="stats">
+    <div class="card stat"><dt class="muted">Books</dt><dd>{{ stats().books }}</dd></div>
+    <div class="card stat"><dt class="muted">Chapters</dt><dd>{{ stats().chapters.toLocaleString() }}</dd></div>
+  </dl>
+
+  <div class="sorts" role="group" aria-label="Sort">
+    @for (s of sorts; track s.id) {
+      <button
+        type="button"
+        class="btn btn-ghost"
+        [class.active]="sort() === s.id"
+        [attr.aria-pressed]="sort() === s.id"
+        (click)="sort.set(s.id)"
+      >{{ s.label }}</button>
+    }
+  </div>
+
+  <ul class="books">
+    @for (it of sorted(); track it.id) {
+      <li>
+        <a class="card book" [routerLink]="['/audiobook', it.id]">
+          <img [src]="it.image" alt="" />
+          <span class="info">
+            <span class="title">{{ it.name }}</span>
+            <span class="muted">By {{ it.authors }}</span>
+            @if (it.narrators) {
+              <span class="muted">Read by {{ it.narrators }}</span>
+            }
+            <span class="muted small">{{ it.details }}</span>
+          </span>
+        </a>
+      </li>
+    }
+  </ul>
+} @else if (!loading() && !error()) {
+  <p class="muted">No saved audiobooks yet.</p>
+}

@@ -1,0 +1,206 @@
+@use 'mixins' as *;
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  color-scheme: dark;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: var(--text-md);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+
+  @include retro {
+    font-size: 13px;
+  }
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
+  color: var(--text-strong);
+  line-height: 1.15;
+  font-weight: var(--weight-black);
+  letter-spacing: -0.02em;
+}
+
+h1 { font-size: var(--text-2xl); }
+h2 { font-size: var(--text-xl); }
+h3 { font-size: var(--text-lg); }
+
+p { margin: 0; }
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+
+  &:hover {
+    color: var(--accent-hover);
+    text-decoration: underline;
+  }
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+:focus-visible {
+  @include focus-ring;
+}
+
+// ---- Buttons ----
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-5);
+  border: 1px solid transparent;
+  border-radius: var(--radius-pill);
+  font: inherit;
+  font-weight: var(--weight-bold);
+  cursor: pointer;
+  transition:
+    transform var(--duration-fast) var(--ease-out),
+    background var(--duration-fast),
+    box-shadow var(--duration-fast);
+
+  &:active { transform: translateY(1px) scale(0.99); }
+  &:disabled { opacity: 0.5; cursor: not-allowed; }
+  @include retro-key;
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: var(--accent-contrast);
+  box-shadow: 0 6px 24px -6px var(--accent-glow);
+
+  &:hover:not(:disabled) { background: var(--accent-hover); }
+  @include retro { font-weight: bold; }
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--text);
+  border-color: var(--border);
+
+  &:hover:not(:disabled) { background: var(--surface-raised); }
+}
+
+.btn-icon {
+  padding: var(--space-2);
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--text);
+  border: 0;
+  cursor: pointer;
+
+  &:hover:not(:disabled) { background: var(--surface-raised); }
+  &:disabled { opacity: 0.4; cursor: not-allowed; }
+  @include retro-key;
+}
+
+// ---- Surfaces ----
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+
+  @include retro {
+    border: 0;
+    @include bevel-out;
+  }
+  @include blast-heat {
+    background: color-mix(in srgb, var(--surface) 68%, transparent);
+    backdrop-filter: blur(10px);
+  }
+}
+
+.muted { color: var(--text-muted); }
+.visually-hidden { @include visually-hidden; }
+
+.lcd {
+  @include retro {
+    background: var(--lcd-bg);
+    color: var(--lcd-fg);
+    font-family: var(--font-mono);
+    padding: 2px 6px;
+    box-shadow: inset 1px 1px var(--bevel-dark), inset -1px -1px var(--bevel-light);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+// ---- Page text (not inside a card) uses the canvas-* tokens ----
+// Readable on the retro teal desktop AND over the Blast visualizer.
+main {
+  :is(h1, h2, h3, p, label, .muted):not(.card *, .card, .brand-title) {
+    @include canvas-text;
+  }
+  .muted:not(.card *, .card, .brand-title) {
+    @include canvas-text($muted: true);
+  }
+  a:not(.card *, .card, .brand-title) {
+    color: var(--canvas-link);
+  }
+  .error:not(.card *, .card) {
+    color: var(--canvas-danger);
+  }
+}
+
+// Blast: bare text also gets a hard black outline so it reads over ANY colour the visuals draw.
+html[data-blast] {
+  main {
+    position: relative;
+    z-index: 1;
+
+    :is(h1, h2, h3, p, label, .muted, .error, a):not(.card *, .card) {
+      text-shadow: var(--text-outline);
+    }
+  }
+  .blast-canvas { opacity: 0.8; }
+}
+
+// ---- Top bar ----
+.topbar {
+  @include blast-heat {
+    background: color-mix(in srgb, var(--bg) 55%, transparent);
+
+    :is(.brand, .me) { text-shadow: var(--text-outline); }
+  }
+  @include retro {
+    background: var(--surface);
+    border-bottom: 0;
+    backdrop-filter: none;
+    @include bevel-out;
+
+    .brand,
+    .me,
+    .mini-nav a { color: var(--text); }
+    .mini-nav a.active { background: var(--accent); color: var(--accent-contrast); }
+  }
+}

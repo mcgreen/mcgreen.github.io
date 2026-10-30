@@ -1,0 +1,48 @@
+<div class="page">
+  @if (error(); as err) {
+    <p class="error" role="alert">{{ err }}</p>
+  }
+  @if (show(); as s) {
+    <header class="hero">
+      <img class="cover" [src]="s.images[0]?.url ?? ''" alt="" />
+      <div class="info">
+        <p class="muted kind">Podcast</p>
+        <h1>{{ s.name }}</h1>
+        <p class="muted">
+          {{ s.publisher }} · {{ s.total_episodes.toLocaleString() }} episodes
+          @if (s.languages.length) { · {{ s.languages.join(', ') }} }
+          @if (s.explicit) { · Explicit }
+        </p>
+        <app-expandable-text class="about" [text]="s.description" />
+        <button class="btn btn-primary" type="button" (click)="playShow(s)">
+          <app-icon name="play" /> Play
+        </button>
+      </div>
+    </header>
+
+    <h2>Episodes</h2>
+    @if (episodesError(); as err) {
+      <p class="error" role="alert">{{ err }}</p>
+    }
+    <ol class="list">
+      @for (e of episodes(); track e.id) {
+        <li>
+          <app-media-row
+            [title]="e.title"
+            [meta]="e.meta"
+            [description]="e.description"
+            [image]="e.image"
+            [explicit]="e.explicit"
+            (play)="playEpisode(e.uri)"
+          />
+        </li>
+      } @empty {
+        @if (episodesLoading()) {
+          <li class="muted" role="status">Loading episodes…</li>
+        }
+      }
+    </ol>
+  } @else if (loading()) {
+    <p class="muted" role="status">Loading…</p>
+  }
+</div>

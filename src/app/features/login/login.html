@@ -1,0 +1,19 @@
+<section class="stage">
+  <div class="deck" (mouseenter)="hover.set(true)" (mouseleave)="hover.set(false)">
+    <app-record size="var(--deck)" [spinning]="true" [speed]="speed()" />
+    <div class="arm" aria-hidden="true"><div class="head"></div></div>
+  </div>
+
+  <div class="copy">
+    <h1 class="brand-title">{{ brand }}</h1>
+    <p class="muted tagline">See what's hot in your music. Spin something new.</p>
+
+    <button class="btn btn-primary" type="button" [disabled]="launching()" (click)="login()">
+      {{ launching() ? 'Dropping the needle…' : 'Log in with Spotify' }}
+    </button>
+
+    @if (error(); as err) {
+      <p class="error" role="alert">{{ err }}</p>
+    }
+  </div>
+</section>

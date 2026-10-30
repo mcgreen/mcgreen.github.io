@@ -1,0 +1,25 @@
+@use 'mixins' as *;
+
+:host {
+  display: grid;
+  gap: var(--space-1);
+  justify-items: start;
+}
+
+.text {
+  white-space: pre-line;
+
+  &.clamped { @include line-clamp(4); }
+}
+
+.toggle {
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-weight: var(--weight-bold);
+  color: var(--canvas-link);
+  cursor: pointer;
+
+  &:hover { text-decoration: underline; }
+}

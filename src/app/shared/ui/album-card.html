@@ -1,0 +1,14 @@
+<a class="card tile" [routerLink]="route()">
+  <img [src]="image() ?? ''" alt="" />
+  <span class="name">{{ name() }}</span>
+  <span class="muted sub">{{ subtitle() }}</span>
+  @if (heat() !== null) {
+    <span class="who">You <app-meter [value]="heat() ?? 0" [segmentCount]="8" label="Your heat" /></span>
+  }
+  @if (globalHeat() !== null) {
+    <span class="who">World <app-meter [value]="globalHeat() ?? 0" [segmentCount]="8" label="World heat" /></span>
+  }
+  @if (gap()) {
+    <span class="gap">{{ gap() }}</span>
+  }
+</a>

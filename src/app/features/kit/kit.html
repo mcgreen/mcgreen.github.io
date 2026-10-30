@@ -1,0 +1,74 @@
+<div class="page">
+  <header class="head">
+    <h1>Design kit</h1>
+    <button class="btn btn-ghost" type="button" (click)="theme.toggle()">
+      Theme: {{ theme.theme() }} (switch)
+    </button>
+  </header>
+
+  <section class="card block">
+    <h2>Heat ramp</h2>
+    <div class="swatches">
+      @for (s of heat; track s) {
+        <div class="swatch" [style.background]="'var(' + s + ')'"><span>{{ s }}</span></div>
+      }
+    </div>
+  </section>
+
+  <section class="card block">
+    <h2>Ink</h2>
+    <div class="swatches">
+      @for (s of ink; track s) {
+        <div class="swatch ink" [style.background]="'var(' + s + ')'"><span>{{ s }}</span></div>
+      }
+    </div>
+  </section>
+
+  <section class="card block">
+    <h2>Type</h2>
+    <h1>Display 2.5rem / Black</h1>
+    <h2>Title 1.75rem / Black</h2>
+    <h3>Heading 1.25rem / Black</h3>
+    <p>Body 1rem. The quick brown fox jumps over the lazy dog.</p>
+    <p class="muted">Muted body, for secondary information.</p>
+  </section>
+
+  <section class="card block">
+    <h2>Buttons</h2>
+    <div class="row">
+      <button class="btn btn-primary" type="button">Primary</button>
+      <button class="btn btn-ghost" type="button">Ghost</button>
+      <button class="btn btn-primary" type="button" disabled>Disabled</button>
+      <button class="btn-icon" type="button" aria-label="Previous"><app-icon name="prev" /></button>
+      <button class="btn-icon" type="button" aria-label="Play"><app-icon name="play" /></button>
+      <button class="btn-icon" type="button" aria-label="Pause"><app-icon name="pause" /></button>
+      <button class="btn-icon" type="button" aria-label="Next"><app-icon name="next" /></button>
+    </div>
+  </section>
+
+  <section class="card block">
+    <h2>Meter</h2>
+    <div class="meters">
+      @for (v of values; track v) {
+        <div class="meter-row"><span class="muted">{{ v }}</span><app-meter [value]="v" /></div>
+      }
+    </div>
+    <label class="slider">
+      Try it
+      <input type="range" min="0" max="100" [value]="custom()" (input)="custom.set(+$any($event.target).value)" />
+      <app-meter [value]="custom()" />
+    </label>
+  </section>
+
+  <section class="card block">
+    <h2>Record</h2>
+    <div class="row">
+      <app-record size="200px" [spinning]="spin()" />
+      <app-record size="96px" [spinning]="spin()" />
+      <app-record size="34px" [spinning]="spin()" />
+      <button class="btn btn-ghost" type="button" (click)="spin.set(!spin())">
+        {{ spin() ? 'Stop' : 'Spin' }}
+      </button>
+    </div>
+  </section>
+</div>

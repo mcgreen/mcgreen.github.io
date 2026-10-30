@@ -1,0 +1,78 @@
+<div class="bar card">
+  @if (player.error(); as err) {
+    <p class="msg" role="alert">{{ err }}</p>
+  }
+
+  <div class="now">
+    @if (player.track(); as t) {
+      @if (player.albumArt(); as art) {
+        <img class="art" [src]="art" alt="" />
+      }
+      <div class="meta">
+        <div class="title">{{ t.name }}</div>
+        <div class="artist muted">{{ artistNames() }}</div>
+      </div>
+    }
+  </div>
+
+  <div class="center">
+    @if (player.track()) {
+      <div class="controls">
+        <button class="btn-icon" type="button" (click)="player.previous()" aria-label="Previous track">
+          <app-icon name="prev" />
+        </button>
+        <button class="btn-icon main" type="button" (click)="player.toggle()" [attr.aria-label]="player.paused() ? 'Play' : 'Pause'">
+          <app-icon [name]="player.paused() ? 'play' : 'pause'" />
+        </button>
+        <button class="btn-icon" type="button" (click)="player.next()" aria-label="Next track">
+          <app-icon name="next" />
+        </button>
+      </div>
+      <div class="progress">
+        <span class="time lcd">{{ position() }}</span>
+        <input
+          type="range"
+          min="0"
+          [max]="player.durationMs()"
+          [value]="player.positionMs()"
+          (change)="onSeek($event)"
+          aria-label="Seek"
+        />
+        <span class="time lcd">{{ duration() }}</span>
+      </div>
+    } @else {
+      <p class="idle muted">
+        @switch (player.status()) {
+          @case ('ready') { Nothing playing. Pick a track to start. }
+          @case ('error') { Player unavailable. }
+          @default { Starting player… }
+        }
+      </p>
+    }
+  </div>
+
+  <div class="right">
+    <button
+      class="btn btn-ghost tog"
+      type="button"
+      [attr.aria-pressed]="visuals.blast()"
+      (click)="visuals.toggle()"
+      title="Full-screen visuals behind the app"
+    >Blast {{ visuals.blast() ? 'on' : 'off' }}</button>
+    <button class="btn btn-ghost tog" type="button" (click)="theme.toggle()">
+      {{ theme.theme() === 'heat' ? 'Retro mode' : 'Modern mode' }}
+    </button>
+    @if (player.track()) {
+      <input
+        class="vol"
+        type="range"
+        min="0"
+        max="1"
+        step="0.01"
+        [value]="player.volume()"
+        (input)="onVolume($event)"
+        aria-label="Volume"
+      />
+    }
+  </div>
+</div>

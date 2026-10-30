@@ -1,0 +1,47 @@
+@use 'mixins' as *;
+
+.page { @include page; }
+
+.box {
+  width: 100%;
+  padding: var(--space-3) var(--space-4);
+  font: inherit;
+  color: var(--text-strong);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-pill);
+
+  &:focus {
+    border-color: var(--accent);
+    outline: none;
+    box-shadow: 0 0 0 3px var(--accent-glow);
+  }
+}
+
+.error { color: var(--danger); }
+.list { @include plain-list; }
+.artists { @include shelf; }
+.grid { @include tile-grid; }
+
+.album {
+  display: grid;
+  gap: var(--space-1);
+  padding: var(--space-3);
+  color: var(--text);
+  border-radius: var(--radius-md);
+
+  &:hover {
+    text-decoration: none;
+    border-color: var(--accent);
+  }
+
+  img { @include cover; }
+}
+
+.name {
+  font-weight: var(--weight-bold);
+  color: var(--text-strong);
+  @include line-clamp(2);
+}
+
+.year { font-size: var(--text-xs); }

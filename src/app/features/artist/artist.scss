@@ -1,0 +1,61 @@
+@use 'mixins' as *;
+
+.page { @include page; }
+.error { color: var(--danger); }
+
+.hero {
+  display: flex;
+  gap: var(--space-6);
+  align-items: flex-end;
+  flex-wrap: wrap;
+}
+
+.photo {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: var(--surface-raised);
+  @include hero-glow;
+}
+
+.info {
+  display: grid;
+  gap: var(--space-3);
+  justify-items: start;
+}
+
+.heat {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.list { @include plain-list; }
+.grid { @include tile-grid; }
+
+.album {
+  display: grid;
+  gap: var(--space-1);
+  padding: var(--space-3);
+  color: var(--text);
+  border-radius: var(--radius-md);
+
+  &:hover {
+    text-decoration: none;
+    border-color: var(--accent);
+  }
+
+  img { @include cover; }
+}
+
+.name {
+  font-weight: var(--weight-bold);
+  color: var(--text-strong);
+  @include line-clamp(2);
+}
+
+.year {
+  font-size: var(--text-xs);
+  text-transform: capitalize;
+}

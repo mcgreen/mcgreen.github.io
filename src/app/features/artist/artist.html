@@ -1,0 +1,69 @@
+<div class="page">
+  @if (error(); as err) {
+    <p class="error" role="alert">{{ err }}</p>
+  }
+  @if (artist(); as a) {
+    <header class="hero">
+      <img class="photo" [src]="a.images[0]?.url ?? ''" alt="" />
+      <div class="info">
+        <h1>{{ a.name }}</h1>
+        @if (a.followers; as f) {
+          <p class="muted">{{ f.total.toLocaleString() }} followers</p>
+        }
+        @if (a.genres; as g) {
+          @if (g.length) {
+            <p class="muted">{{ g.join(' · ') }}</p>
+          }
+        }
+        @if (artistHeat() !== null) {
+          <div class="heat">
+            <app-meter [value]="artistHeat() ?? 0" label="Your heat for this artist" />
+            <span class="muted">Your heat · {{ artistHeat() }}/100</span>
+          </div>
+        }
+        @if (a.popularity !== undefined) {
+          <div class="heat">
+            <app-meter [value]="a.popularity" label="Global heat for this artist" />
+            <span class="muted">World heat · {{ a.popularity }}/100</span>
+          </div>
+        }
+        <button class="btn btn-primary" type="button" (click)="playArtist(a)">
+          <app-icon name="play" /> Play
+        </button>
+      </div>
+    </header>
+
+    @if (topTracks().length) {
+      <h2>Top tracks</h2>
+      <ol class="list">
+        @for (row of topTracks(); track row.track.id) {
+          <li><app-track-row [track]="row.track" [heat]="row.heat" [globalHeat]="row.global" (play)="playTop($index)" /></li>
+        }
+      </ol>
+    }
+
+    @if (yourTracks().length) {
+      <h2>Your tracks</h2>
+      <ol class="list">
+        @for (row of yourTracks(); track row.track.id) {
+          <li><app-track-row [track]="row.track" [heat]="row.heat" (play)="playYours($index)" /></li>
+        }
+      </ol>
+    }
+
+    @if (albums().length) {
+      <h2>Albums &amp; singles</h2>
+      <div class="grid">
+        @for (al of albums(); track al.id) {
+          <a class="album card" [routerLink]="['/album', al.id]">
+            <img [src]="al.images[0]?.url ?? ''" alt="" />
+            <span class="name">{{ al.name }}</span>
+            <span class="muted year">{{ year(al) }} · {{ al.album_type }}</span>
+          </a>
+        }
+      </div>
+    }
+  } @else if (loading()) {
+    <p class="muted" role="status">Loading…</p>
+  }
+</div>

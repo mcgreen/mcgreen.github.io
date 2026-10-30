@@ -1,0 +1,64 @@
+@use 'mixins' as *;
+
+.stage {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: var(--space-7);
+  padding: var(--space-6) var(--space-7) var(--space-6) var(--space-5);
+  background: radial-gradient(60vmax 60vmax at 50% 0%, color-mix(in srgb, var(--heat-700) 22%, transparent), transparent 70%);
+
+  @include up('md') {
+    grid-auto-flow: column;
+    justify-content: center;
+    gap: var(--space-8);
+  }
+}
+
+.deck { --deck: min(70vw, 340px); position: relative; width: var(--deck); aspect-ratio: 1; }
+
+// Tonearm: pivots at the top right, swings in over the grooves on load.
+.arm {
+  position: absolute;
+  top: 2%;
+  right: -10%;
+  width: 7px;
+  height: 70%;
+  transform-origin: 50% 6px;
+  transform: rotate(-8deg);
+  animation: drop 1.4s 0.35s var(--ease-out) forwards;
+  border-radius: 4px;
+  background: linear-gradient(90deg, var(--metal-400), var(--ink-100) 45%, var(--metal-600));
+  filter: drop-shadow(0 6px 8px var(--black-50));
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: -14px;
+    left: 50%;
+    width: 28px;
+    height: 28px;
+    margin-left: -14px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, var(--ink-100), var(--metal-800));
+  }
+}
+.head {
+  position: absolute;
+  bottom: -10px;
+  left: -6px;
+  width: 19px;
+  height: 26px;
+  border-radius: 3px;
+  background: linear-gradient(180deg, var(--ink-700), var(--ink-950));
+  border: 1px solid var(--metal-600);
+}
+@keyframes drop {
+  to { transform: rotate(24deg); }
+}
+
+.copy { display: grid; gap: var(--space-4); justify-items: start; max-width: 28rem; }
+h1 { font-size: var(--text-3xl); background: var(--title-fill); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.tagline { font-size: var(--text-lg); }
+.error { color: var(--danger); }

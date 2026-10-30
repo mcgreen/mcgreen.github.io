@@ -1,0 +1,14 @@
+<a class="chip" [routerLink]="['/artist', id()]">
+  <img [src]="image() ?? ''" alt="" />
+  <span class="name">{{ name() }}</span>
+</a>
+@if (heat() !== null || globalHeat() !== null) {
+  <div class="meters">
+    @if (heat() !== null) {
+      <span class="who">You <app-meter [value]="heat() ?? 0" [segmentCount]="6" label="Your heat" /></span>
+    }
+    @if (globalHeat() !== null) {
+      <span class="who">World <app-meter [value]="globalHeat() ?? 0" [segmentCount]="6" label="World heat" /></span>
+    }
+  </div>
+}

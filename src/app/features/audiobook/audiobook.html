@@ -1,0 +1,52 @@
+<div class="page">
+  @if (error(); as err) {
+    <p class="error" role="alert">{{ err }}</p>
+  }
+  @if (book(); as b) {
+    <header class="hero">
+      <img class="cover" [src]="b.images[0]?.url ?? ''" alt="" />
+      <div class="info">
+        <p class="muted kind">Audiobook</p>
+        <h1>{{ b.name }}</h1>
+        <p class="muted">
+          By {{ names(b.authors) }}
+          @if (b.narrators.length) { · Read by {{ names(b.narrators) }} }
+        </p>
+        <p class="muted">
+          {{ b.total_chapters }} chapters · {{ b.publisher }}
+          @if (b.edition) { · {{ b.edition }} }
+          @if (b.explicit) { · Explicit }
+        </p>
+        <app-expandable-text class="about" [text]="b.description" />
+        <button class="btn btn-primary" type="button" (click)="playBook(b)">
+          <app-icon name="play" /> Play
+        </button>
+      </div>
+    </header>
+
+    <h2>Chapters</h2>
+    @if (chaptersError(); as err) {
+      <p class="error" role="alert">{{ err }}</p>
+    }
+    <ol class="list">
+      @for (c of chapters(); track c.id) {
+        <li>
+          <app-media-row
+            [title]="c.title"
+            [meta]="c.meta"
+            [description]="c.description"
+            [image]="c.image"
+            [explicit]="c.explicit"
+            (play)="playChapter(c.uri)"
+          />
+        </li>
+      } @empty {
+        @if (chaptersLoading()) {
+          <li class="muted" role="status">Loading chapters…</li>
+        }
+      }
+    </ol>
+  } @else if (loading()) {
+    <p class="muted" role="status">Loading…</p>
+  }
+</div>

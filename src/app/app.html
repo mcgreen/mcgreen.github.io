@@ -1,0 +1,47 @@
+@if (visuals.blast()) {
+  <app-blast />
+}
+
+<!-- One router-outlet for both states, so signing in never remounts the page. -->
+<div class="shell" [class.in]="auth.isLoggedIn()">
+  @if (auth.isLoggedIn()) {
+    <header class="topbar">
+      <a class="brand" routerLink="/home">
+        <app-record size="34px" [spinning]="!player.paused()" />
+        <span>{{ brand }}</span>
+      </a>
+      <nav class="mini-nav" aria-label="Main">
+        <a routerLink="/home" routerLinkActive="active">Home</a>
+        <a routerLink="/search" routerLinkActive="active">Search</a>
+        <a routerLink="/lab" routerLinkActive="active">Lab</a>
+      </nav>
+      <span class="spacer"></span>
+      @if (me(); as who) {
+        <span class="me" [title]="who.product + ' account'">
+          @if (who.images[0]?.url; as src) {
+            <img [src]="src" alt="" />
+          }
+          <span class="who">{{ who.display_name }}</span>
+        </span>
+      }
+      <button class="btn btn-ghost" type="button" (click)="logout()">Log out</button>
+    </header>
+    <app-sidebar class="side" />
+  }
+
+  <main class="content">
+    <router-outlet />
+  </main>
+
+  @if (auth.isLoggedIn()) {
+    <app-player-bar class="dock" />
+  }
+</div>
+
+<!-- Covers the page while the Spotify redirect is exchanged, so the login screen never flashes. -->
+@if (auth.completing()) {
+  <div class="splash" role="status" aria-live="polite">
+    <app-record size="140px" [spinning]="true" [speed]="3" />
+    <p>Signing you in…</p>
+  </div>
+}

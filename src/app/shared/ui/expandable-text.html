@@ -1,0 +1,6 @@
+<p class="text" [class.clamped]="long() && !open()">{{ text() }}</p>
+@if (long()) {
+  <button class="toggle" type="button" [attr.aria-expanded]="open()" (click)="open.set(!open())">
+    {{ open() ? 'Show less' : 'Show more' }}
+  </button>
+}

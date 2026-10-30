@@ -1,0 +1,17 @@
+<div class="card row">
+  @if (image(); as src) {
+    <img class="art" [src]="src" alt="" />
+  }
+  <div class="meta">
+    <p class="title">{{ title() }}@if (explicit()) {<span class="explicit" title="Explicit">E</span>}</p>
+    @if (meta()) {
+      <p class="muted line">{{ meta() }}</p>
+    }
+    @if (description()) {
+      <p class="muted desc">{{ description() }}</p>
+    }
+  </div>
+  <button class="btn-icon play" type="button" (click)="play.emit()" [attr.aria-label]="'Play ' + title()">
+    <app-icon name="play" />
+  </button>
+</div>

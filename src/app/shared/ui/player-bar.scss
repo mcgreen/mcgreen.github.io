@@ -1,0 +1,123 @@
+@use 'mixins' as *;
+
+:host { display: block; }
+
+.bar {
+  min-height: calc(var(--player-bar-height) - var(--space-2));
+  padding: var(--space-3) var(--space-4);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr) minmax(0, 1fr);
+  align-items: center;
+  gap: var(--space-4);
+  border-radius: var(--radius-md);
+
+  @include down('md') {
+    grid-template-columns: 1fr auto;
+
+    .center {
+      order: 3;
+      grid-column: 1 / -1;
+
+      .progress { display: none; }
+    }
+    .vol { display: none; }
+  }
+}
+
+.msg {
+  grid-column: 1 / -1;
+  color: var(--danger);
+  font-size: var(--text-sm);
+}
+
+.idle { text-align: center; }
+
+.now {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-width: 0;
+}
+
+.art {
+  width: 52px;
+  height: 52px;
+  border-radius: var(--radius-sm);
+  object-fit: cover;
+}
+
+.meta { min-width: 0; }
+
+.title,
+.artist { @include truncate; }
+
+.title {
+  font-weight: var(--weight-bold);
+  color: var(--text-strong);
+}
+
+.artist { font-size: var(--text-sm); }
+
+.center {
+  display: grid;
+  gap: var(--space-1);
+  justify-items: center;
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.main {
+  background: var(--accent);
+  color: var(--accent-contrast);
+
+  &:hover:not(:disabled) { background: var(--accent-hover); }
+}
+
+.progress {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  width: 100%;
+  max-width: 640px;
+
+  input {
+    flex: 1;
+    accent-color: var(--accent);
+  }
+}
+
+// The retro theme draws these on a black LCD panel, so they must use the LCD colour there.
+.time {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--lcd-fg, var(--text-muted));
+  min-width: 3ch;
+}
+
+.right {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--space-2);
+}
+
+.tog {
+  padding: var(--space-1) var(--space-3);
+  font-size: var(--text-xs);
+  white-space: nowrap;
+
+  &[aria-pressed='true'] {
+    background: var(--accent);
+    color: var(--accent-contrast);
+    border-color: var(--accent);
+  }
+}
+
+.vol {
+  width: 110px;
+  accent-color: var(--accent);
+}

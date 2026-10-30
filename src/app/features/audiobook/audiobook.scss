@@ -1,0 +1,35 @@
+@use 'mixins' as *;
+
+.page { @include page(var(--space-5)); }
+.error { color: var(--danger); }
+
+.hero {
+  display: flex;
+  gap: var(--space-6);
+  align-items: flex-end;
+  flex-wrap: wrap;
+}
+
+.cover {
+  width: 220px;
+  height: 220px;
+  border-radius: var(--radius-md);
+  object-fit: cover;
+  background: var(--surface-raised);
+  @include hero-glow;
+}
+
+.info {
+  display: grid;
+  gap: var(--space-3);
+  justify-items: start;
+  max-width: 40rem;
+}
+
+.kind {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: var(--text-xs);
+}
+
+.list { @include plain-list; }

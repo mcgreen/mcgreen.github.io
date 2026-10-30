@@ -1,0 +1,27 @@
+<div class="page">
+  <h1>Home</h1>
+
+  <nav class="kinds" aria-label="What to show">
+    @for (k of kinds; track k.id) {
+      <a
+        class="btn btn-ghost"
+        [routerLink]="[]"
+        [queryParams]="{ view: k.id === 'music' ? null : k.id }"
+        [class.active]="kind() === k.id"
+        [attr.aria-current]="kind() === k.id ? 'page' : null"
+      >{{ k.label }}</a>
+    }
+  </nav>
+
+  @switch (kind()) {
+    @case ('podcasts') {
+      <app-podcasts-view />
+    }
+    @case ('audiobooks') {
+      <app-audiobooks-view />
+    }
+    @default {
+      <app-music-view />
+    }
+  }
+</div>

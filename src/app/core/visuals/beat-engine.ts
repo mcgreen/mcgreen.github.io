@@ -79,7 +79,9 @@ export class BeatEngine {
         target = Math.min(1, low + mid + high + shimmer);
       } else {
         // Idle: a slow breathing ripple so blast mode never looks dead.
-        target = 0.05 + 0.04 * Math.sin(t * 0.0012 + i * 0.4);
+        const swell = 0.5 + 0.5 * Math.sin(t * 0.0016 + i * 0.45);
+        const drift = 0.5 + 0.5 * Math.sin(t * 0.0009 - i * 0.9);
+        target = 0.12 + 0.8 * swell * (0.45 + 0.55 * drift) * (1 - (i / (n - 1)) * 0.35);
       }
       const cur = this.levels[i];
       this.levels[i] = target > cur ? cur + (target - cur) * 0.65 : cur + (target - cur) * (1 - Math.exp(-dtMs / 130));

@@ -164,7 +164,8 @@ main {
   .muted:not(.card *, .card, .brand-title) {
     @include canvas-text($muted: true);
   }
-  a:not(.card *, .card, .brand-title) {
+  // Links styled as buttons (.btn) keep their own button colours.
+  a:not(.card *, .card, .brand-title, .btn) {
     color: var(--canvas-link);
   }
   .error:not(.card *, .card) {
@@ -178,7 +179,8 @@ html[data-blast] {
     position: relative;
     z-index: 1;
 
-    :is(h1, h2, h3, p, label, .muted, .error, a):not(.card *, .card) {
+    // Not buttons: a black outline on a filled (selected) pill turns its label to mush.
+    :is(h1, h2, h3, p, label, .muted, .error, a):not(.card *, .card, .btn) {
       text-shadow: var(--text-outline);
     }
   }

@@ -65,13 +65,13 @@
 </ol>
 
 @if (releases().length) {
-  <h2 class="section">New releases</h2>
+  <h2 class="section">Latest from your artists</h2>
   <div class="shelf">
     @for (al of releases(); track al.id) {
       <a class="release" [routerLink]="['/album', al.id]">
         <img [src]="al.images[0]?.url ?? ''" alt="" />
         <span class="rname">{{ al.name }}</span>
-        <span class="rartist">{{ al.artists[0]?.name }}</span>
+        <span class="rartist">{{ al.artists[0]?.name }} · {{ al.release_date }}</span>
       </a>
     }
   </div>

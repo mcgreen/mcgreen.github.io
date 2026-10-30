@@ -7,7 +7,7 @@ import { errorText } from '../../core/errors';
 import { personalHeat, topAlbums, trend } from '../../core/heat';
 import { PlayerService } from '../../core/player/player.service';
 import { safe } from '../../core/resource';
-import { NewReleasesResponse, Paging, PlayHistory, TimeRange } from '../../core/spotify/models';
+import { Paging, PlayHistory, TimeRange } from '../../core/spotify/models';
 import { SpotifyApi } from '../../core/spotify/spotify-api.service';
 import { TasteService } from '../../core/taste.service';
 import { AlbumCard } from '../../shared/ui/album-card';
@@ -59,9 +59,25 @@ export class MusicView {
     }));
   });
 
-  /** Officially removed endpoint; a failure just leaves the section out. */
-  private readonly releasesRes = httpResource<NewReleasesResponse>(() => this.api.req.newReleases(20));
-  protected readonly releases = computed(() => safe(this.releasesRes)?.albums.items ?? []);
+  /**
+   * "New releases" from Spotify's browse endpoint is frozen (it returns 2024 albums), so build it
+   * from real data instead: the latest albums and singles of your top artists, newest first.
+   */
+  private readonly releasesRes = rxResource({
+    params: () => (this.taste.artists()?.['medium_term'] ?? []).slice(0, 15).map((a) => a.id),
+    stream: ({ params }) =>
+      params.length
+        ? forkJoin(params.map((id) => this.api.artistAlbumsList(id).pipe(catchError(() => of(null)))))
+        : of([]),
+  });
+  protected readonly releases = computed(() => {
+    const seen = new Set<string>();
+    return (safe(this.releasesRes) ?? [])
+      .flatMap((page) => page?.items ?? [])
+      .filter((al) => !!al.release_date && !seen.has(al.id) && !!seen.add(al.id))
+      .sort((a, b) => (b.release_date ?? '').localeCompare(a.release_date ?? ''))
+      .slice(0, 12);
+  });
 
   /** Derived from the selected range's top tracks (Spotify has no top-albums endpoint). */
   protected readonly albums = computed(() => {

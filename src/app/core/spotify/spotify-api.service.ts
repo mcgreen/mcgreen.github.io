@@ -2,7 +2,7 @@ import { HttpClient, HttpParams, HttpResourceRequest, HttpResponse } from '@angu
 import { Service, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { SPOTIFY } from '../config';
-import { AlbumFull, SpotifyTrack, StartPlaybackBody, TimeRange } from './models';
+import { AlbumFull, AlbumSummary, Paging, SpotifyTrack, StartPlaybackBody, TimeRange } from './models';
 
 /** Search limit is capped at 10 since Feb 2026 (default 5). */
 const SEARCH_MAX = 10;
@@ -69,6 +69,12 @@ export class SpotifyApi {
 
   album(id: string): Observable<AlbumFull> {
     return this.http.get<AlbumFull>(api(`/albums/${seg(id)}`));
+  }
+
+  artistAlbumsList(id: string, limit = 5): Observable<Paging<AlbumSummary>> {
+    return this.http.get<Paging<AlbumSummary>>(api(`/artists/${seg(id)}/albums`), {
+      params: { include_groups: 'album,single', limit },
+    });
   }
 
   track(id: string): Observable<SpotifyTrack> {

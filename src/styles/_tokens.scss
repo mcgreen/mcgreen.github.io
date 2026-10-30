@@ -86,7 +86,7 @@
   --duration-med: 240ms;
 
   /* ---- Outline for text drawn over the blast canvas (works on any colour) ---- */
-  --text-outline: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 0 0 8px #000;
+  --text-outline: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000, 1px 0 0 #000;
 
   /* ---- Layout ---- */
   --player-bar-height: 84px;
